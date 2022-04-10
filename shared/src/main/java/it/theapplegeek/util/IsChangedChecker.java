@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class IsChangedChecker {
-
     public static Boolean isChanged(String oldString, String newString) {
         return (newString != null &&
                 newString.length() > 0 &&
@@ -23,5 +22,4 @@ public class IsChangedChecker {
                 !Objects.equals(newNumber, oldNumber)
         );
     }
-
 }
