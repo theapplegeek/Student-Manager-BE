@@ -1,7 +1,7 @@
 package it.theapplegeek.student;
 
-import com.example.spring.studentcard.StudentCardDto;
 import it.theapplegeek.annotation.Name;
+import it.theapplegeek.studentcard.StudentCardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

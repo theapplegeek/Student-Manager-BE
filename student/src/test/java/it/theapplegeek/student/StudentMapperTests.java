@@ -1,5 +1,7 @@
 package it.theapplegeek.student;
 
+import it.theapplegeek.studentcard.StudentCard;
+import it.theapplegeek.studentcard.StudentCardDto;
 import it.theapplegeek.util.FakerGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,8 +75,7 @@ public class StudentMapperTests {
                 LocalDate.now(),
                 expiredDate,
                 "",
-                1L,
-                null
+                1L
         );
         Student student = new Student(
                 1L,
@@ -184,7 +185,6 @@ public class StudentMapperTests {
         assertThat(student.getStudentCard()).isNotNull();
         assertThat(student.getStudentCard().getId()).isNull();
         assertThat(student.getStudentCard().getStudentId()).isNull();
-        assertThat(student.getStudentCard().getStudent()).isNull();
         assertThat(student.getStudentCard().getCardNumber()).isEqualTo(studentDto.getStudentCardDto().getCardNumber());
         assertThat(student.getStudentCard().getCreatedDate()).isEqualTo(LocalDate.now());
         assertThat(student.getStudentCard().getExpiredDate()).isEqualTo(studentDto.getStudentCardDto().getExpiredDate());
@@ -229,7 +229,6 @@ public class StudentMapperTests {
         assertThat(student.getStudentCard()).isNotNull();
         assertThat(student.getStudentCard().getId()).isNull();
         assertThat(student.getStudentCard().getStudentId()).isNull();
-        assertThat(student.getStudentCard().getStudent()).isNull();
         assertThat(student.getStudentCard().getCardNumber()).isEqualTo(studentDto.getStudentCardDto().getCardNumber());
         assertThat(student.getStudentCard().getCreatedDate()).isEqualTo(studentDto.getStudentCardDto().getCreatedDate());
         assertThat(student.getStudentCard().getExpiredDate()).isEqualTo(studentDto.getStudentCardDto().getExpiredDate());

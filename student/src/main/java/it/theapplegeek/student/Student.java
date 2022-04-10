@@ -1,6 +1,6 @@
 package it.theapplegeek.student;
 
-import com.example.spring.studentcard.StudentCard;
+import it.theapplegeek.studentcard.StudentCard;
 import lombok.*;
 import org.hibernate.Hibernate;
 
