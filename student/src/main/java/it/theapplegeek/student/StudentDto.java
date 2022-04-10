@@ -1,0 +1,49 @@
+package it.theapplegeek.student;
+
+import com.example.spring.studentcard.StudentCardDto;
+import it.theapplegeek.annotation.Name;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Past;
+import java.time.LocalDate;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class StudentDto {
+    @Min(1)
+    private Long id;
+    @Name
+    private String firstName;
+    @Name
+    private String lastName;
+    @Past
+    private LocalDate dob;
+    @Email
+    private String email;
+    private Integer age;
+    private StudentCardDto studentCardDto;
+
+    // for add new student without card
+    public StudentDto(String firstName, String lastName, LocalDate dob, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.email = email;
+    }
+
+    // for add new student with new card
+    public StudentDto(String firstName, String lastName, LocalDate dob, String email, StudentCardDto studentCardDto) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.email = email;
+        this.studentCardDto = studentCardDto;
+    }
+}
