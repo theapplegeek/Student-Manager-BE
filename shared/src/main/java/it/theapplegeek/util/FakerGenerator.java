@@ -2,8 +2,8 @@ package it.theapplegeek.util;
 
 import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
 @AllArgsConstructor
 public class FakerGenerator extends Faker {}

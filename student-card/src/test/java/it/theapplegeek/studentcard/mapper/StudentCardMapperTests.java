@@ -1,5 +1,8 @@
-package it.theapplegeek.studentcard;
+package it.theapplegeek.studentcard.mapper;
 
+import it.theapplegeek.studentcard.dto.StudentCardDto;
+import it.theapplegeek.studentcard.mapper.StudentCardMapper;
+import it.theapplegeek.studentcard.model.StudentCard;
 import it.theapplegeek.util.FakerGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,8 +54,7 @@ class StudentCardMapperTests {
                 createdDate,
                 expiredDate,
                 periodStr,
-                2L,
-                null
+                2L
         );
 
         // when
@@ -109,7 +111,6 @@ class StudentCardMapperTests {
         assertThat(studentCard.getExpiredDate()).isEqualTo(studentCardDto.getExpiredDate());
         assertThat(studentCard.getStudentId()).isEqualTo(studentCardDto.getStudentId());
         assertThat(studentCard.getValidationPeriod()).isEqualTo(studentCardDto.getValidationPeriod());
-        assertThat(studentCard.getStudent()).isNull();
     }
 
     @Test
@@ -137,6 +138,5 @@ class StudentCardMapperTests {
         assertThat(studentCard.getExpiredDate()).isEqualTo(studentCardDto.getExpiredDate());
         assertThat(studentCard.getStudentId()).isEqualTo(studentCardDto.getStudentId());
         assertThat(studentCard.getValidationPeriod()).isEqualTo(periodStr);
-        assertThat(studentCard.getStudent()).isNull();
     }
 }

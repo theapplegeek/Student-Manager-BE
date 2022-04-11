@@ -1,6 +1,5 @@
-package it.theapplegeek.studentcard;
+package it.theapplegeek.studentcard.dto;
 
-import it.theapplegeek.annotation.Default;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +26,6 @@ public class StudentCardDto {
     @Min(1)
     private Long studentId;
 
-    @Default
     public StudentCardDto(String cardNumber, LocalDate createdDate, LocalDate expiredDate, Long studentId) {
         this.cardNumber = cardNumber;
         this.createdDate = createdDate;

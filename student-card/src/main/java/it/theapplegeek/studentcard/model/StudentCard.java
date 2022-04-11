@@ -1,4 +1,4 @@
-package it.theapplegeek.studentcard;
+package it.theapplegeek.studentcard.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;

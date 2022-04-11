@@ -1,7 +1,11 @@
-package it.theapplegeek.student;
+package it.theapplegeek.student.mapper;
 
-import it.theapplegeek.studentcard.StudentCard;
-import it.theapplegeek.studentcard.StudentCardDto;
+import it.theapplegeek.student.dto.StudentDto;
+import it.theapplegeek.student.mapper.StudentMapper;
+import it.theapplegeek.student.model.Student;
+import it.theapplegeek.student.repository.StudentRepo;
+import it.theapplegeek.studentcard.model.StudentCard;
+import it.theapplegeek.studentcard.dto.StudentCardDto;
 import it.theapplegeek.util.FakerGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,7 @@
-package it.theapplegeek.student;
+package it.theapplegeek.student.mapper;
 
+import it.theapplegeek.student.dto.StudentDto;
+import it.theapplegeek.student.model.Student;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

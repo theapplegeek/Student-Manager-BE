@@ -5,8 +5,10 @@
     <file url="file://$PROJECT_DIR$/shared/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/student-card/${project.basedir}/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/student-card/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/student-card/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/student/${project.basedir}/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/student/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/student/src/main/resources" charset="UTF-8" />
   </component>

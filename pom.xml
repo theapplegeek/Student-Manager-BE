@@ -6,15 +6,18 @@
     <groupId>it.theapplegeek</groupId>
     <artifactId>student-manager</artifactId>
     <packaging>pom</packaging>
-    <version>${project.version}</version>
+    <version>1.0</version>
+
+    <name>student-manager</name>
+    <url>https://www.theapplegeek.ns0.it</url>
 
     <properties>
-        <project.version>1.0</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.plugins.version>3.8.1</maven.plugins.version>
-        <spring.boot.version>2.6.5</spring.boot.version>
+        <spring.boot.maven.plugin.version>2.6.6</spring.boot.maven.plugin.version>
+        <spring.boot.version>2.6.6</spring.boot.version>
         <spring.cloud-version>2021.0.1</spring.cloud-version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <con.github.javafaker.version>1.0.2</con.github.javafaker.version>
@@ -46,13 +49,11 @@
                 <groupId>com.github.javafaker</groupId>
                 <artifactId>javafaker</artifactId>
                 <version>${con.github.javafaker.version}</version>
-                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${org.mapstruct.version}</version>
-                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -61,7 +62,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.22</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -80,6 +81,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.maven.plugin.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -90,7 +92,7 @@
                     <configuration>
                         <excludes>
                             <exclude>
-                                <groupId>org.project-lombok</groupId>
+                                <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
                             </exclude>
                         </excludes>
@@ -103,6 +105,23 @@
                     <configuration>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
+<!--                        <annotationProcessorPaths>-->
+<!--                            <path>-->
+<!--                                <artifactId>lombok</artifactId>-->
+<!--                                <groupId>org.projectlombok</groupId>-->
+<!--                                <version>1.18.22</version>-->
+<!--                            </path>-->
+<!--                            <path>-->
+<!--                                <artifactId>mapstruct-processor</artifactId>-->
+<!--                                <groupId>org.mapstruct</groupId>-->
+<!--                                <version>${org.mapstruct.version}</version>-->
+<!--                            </path>-->
+<!--                            <path>-->
+<!--                                <artifactId>lombok-mapstruct-binding</artifactId>-->
+<!--                                <groupId>org.projectlombok</groupId>-->
+<!--                                <version>0.2.0</version>-->
+<!--                            </path>-->
+<!--                        </annotationProcessorPaths>-->
                     </configuration>
                 </plugin>
             </plugins>

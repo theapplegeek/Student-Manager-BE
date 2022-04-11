@@ -1,5 +1,6 @@
-package it.theapplegeek.studentcard;
+package it.theapplegeek.studentcard.repository;
 
+import it.theapplegeek.studentcard.model.StudentCard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

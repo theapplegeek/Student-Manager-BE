@@ -1,6 +1,6 @@
-package it.theapplegeek.student;
+package it.theapplegeek.student.model;
 
-import it.theapplegeek.studentcard.StudentCard;
+import it.theapplegeek.studentcard.model.StudentCard;
 import lombok.*;
 import org.hibernate.Hibernate;
 

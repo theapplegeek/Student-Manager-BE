@@ -1,5 +1,8 @@
-package it.theapplegeek.studentcard;
+package it.theapplegeek.studentcard.controller;
 
+import it.theapplegeek.studentcard.model.StudentCard;
+import it.theapplegeek.studentcard.dto.StudentCardDto;
+import it.theapplegeek.studentcard.service.StudentCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +39,4 @@ public class StudentCardController {
     public void deleteStudentCard(@PathVariable("cardId") Long cardId) {
         studentCardService.deleteStudentCard(cardId);
     }
-
 }
