@@ -1,0 +1,8 @@
+,------.                          ,--.
+|  .---' ,--.,--. ,--.--.  ,---.  |  |,-.   ,--,--.
+|  `--,  |  ||  | |  .--' | .-. : |     /  ' ,-.  |
+|  `---. '  ''  ' |  |    \   --. |  \  \  \ '-'  |
+`------'  `----'  `--'     `----' `--'`--'  `--`--'
+Application ${spring.application.name} ${spring.application.version}
+Powered by Spring Boot ${spring.version}
+Created by TheAppleGeeK

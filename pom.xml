@@ -27,6 +27,7 @@
         <module>shared</module>
         <module>student</module>
         <module>student-card</module>
+        <module>eureka-server</module>
     </modules>
 
     <dependencyManagement>
@@ -82,13 +83,13 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.maven.plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>repackage</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>repackage</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
                     <configuration>
                         <excludes>
                             <exclude>

@@ -1,4 +1,4 @@
-package it.theapplegeek.util;
+package it.theapplegeek.shared.util;
 
 import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;

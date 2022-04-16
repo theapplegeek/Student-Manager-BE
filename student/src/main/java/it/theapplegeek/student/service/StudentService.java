@@ -1,12 +1,12 @@
 package it.theapplegeek.student.service;
 
-import it.theapplegeek.exception.BadRequestException;
-import it.theapplegeek.exception.NotFoundException;
+import it.theapplegeek.shared.exception.BadRequestException;
+import it.theapplegeek.shared.exception.NotFoundException;
 import it.theapplegeek.student.dto.StudentDto;
 import it.theapplegeek.student.mapper.StudentMapper;
 import it.theapplegeek.student.model.Student;
 import it.theapplegeek.student.repository.StudentRepo;
-import it.theapplegeek.util.IsChangedChecker;
+import it.theapplegeek.shared.util.IsChangedChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

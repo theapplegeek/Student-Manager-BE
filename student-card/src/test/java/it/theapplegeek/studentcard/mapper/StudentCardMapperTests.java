@@ -1,9 +1,8 @@
 package it.theapplegeek.studentcard.mapper;
 
 import it.theapplegeek.studentcard.dto.StudentCardDto;
-import it.theapplegeek.studentcard.mapper.StudentCardMapper;
 import it.theapplegeek.studentcard.model.StudentCard;
-import it.theapplegeek.util.FakerGenerator;
+import it.theapplegeek.shared.util.FakerGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

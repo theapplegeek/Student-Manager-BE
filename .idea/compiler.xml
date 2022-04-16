@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="shared" />
+        <module name="eureka-server" />
       </profile>
       <profile name="Annotation profile for student-manager" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />

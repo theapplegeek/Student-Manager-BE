@@ -1,6 +1,6 @@
-package it.theapplegeek.validator;
+package it.theapplegeek.shared.validator;
 
-import it.theapplegeek.annotation.Name;
+import it.theapplegeek.shared.annotation.Name;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

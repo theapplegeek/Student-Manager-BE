@@ -1,11 +1,11 @@
 package it.theapplegeek.studentcard.service;
 
-import it.theapplegeek.exception.NotFoundException;
+import it.theapplegeek.shared.exception.NotFoundException;
 import it.theapplegeek.studentcard.model.StudentCard;
 import it.theapplegeek.studentcard.dto.StudentCardDto;
 import it.theapplegeek.studentcard.mapper.StudentCardMapper;
 import it.theapplegeek.studentcard.repository.StudentCardRepo;
-import it.theapplegeek.util.IsChangedChecker;
+import it.theapplegeek.shared.util.IsChangedChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

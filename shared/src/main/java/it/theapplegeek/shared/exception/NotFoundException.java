@@ -1,4 +1,4 @@
-package it.theapplegeek.exception;
+package it.theapplegeek.shared.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

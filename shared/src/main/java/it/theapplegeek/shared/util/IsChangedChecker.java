@@ -1,4 +1,4 @@
-package it.theapplegeek.util;
+package it.theapplegeek.shared.util;
 
 import java.time.LocalDate;
 import java.util.Objects;
