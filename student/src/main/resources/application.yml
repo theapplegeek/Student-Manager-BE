@@ -21,6 +21,13 @@ server:
     error:
         include-message: always
 
+logging:
+    level:
+        web: DEBUG
+        org:
+            hibernate:
+                SQL: DEBUG
+
 eureka:
     client:
         service-url:

@@ -1,8 +1,11 @@
 package it.theapplegeek.studentcard.service;
 
+import it.theapplegeek.clients.student.StudentClient;
+import it.theapplegeek.clients.student.StudentDto;
+import it.theapplegeek.clients.studentcard.StudentCardDto;
+import it.theapplegeek.shared.exception.BadRequestException;
 import it.theapplegeek.shared.exception.NotFoundException;
 import it.theapplegeek.studentcard.model.StudentCard;
-import it.theapplegeek.studentcard.dto.StudentCardDto;
 import it.theapplegeek.studentcard.mapper.StudentCardMapper;
 import it.theapplegeek.studentcard.repository.StudentCardRepo;
 import it.theapplegeek.shared.util.IsChangedChecker;
@@ -21,6 +24,9 @@ public class StudentCardService {
     @Autowired
     private StudentCardMapper studentCardMapper;
 
+    @Autowired
+    private StudentClient studentClient;
+
     public StudentCardDto getStudentCardByStudentId(Long studentId) {
         return studentCardRepo.findByStudentId(studentId)
                 .map((studentCard) -> studentCardMapper.toDto(studentCard))
@@ -29,17 +35,18 @@ public class StudentCardService {
                 );
     }
 
-    public StudentCardDto addStudentCardAndAssignToStudent(Long studentId, StudentCard studentCard) {
+    public StudentCardDto addStudentCardAndAssignToStudent(Long studentId, StudentCardDto studentCardDto) {
+        StudentDto studentDto = studentClient.getStudent(studentId);
 //        Student student = studentRepo.findById(studentId)
 //                .orElseThrow(() -> new NotFoundException("student with id " + studentId + " not found"));
-//        if (student.getStudentCard() != null)
-//            throw new BadRequestException("student with id " + studentId + " just have a card with number " + student.getStudentCard().getCardNumber());
-//        studentCard.setStudentId(studentId);
-//        studentCard.setCardNumber(studentCard.getCardNumber().toUpperCase());
-//        if (studentCardRepo.existsByCardNumberIgnoreCase(studentCard.getCardNumber()))
-//            throw new BadRequestException("card with number " + studentCard.getCardNumber() + " is present");
-//        todo refactor with microservices style
-        return studentCardMapper.toDto(studentCardRepo.save(studentCard));
+        if (studentDto.getStudentCardDto() != null)
+            throw new BadRequestException("student with id " + studentId + " just have a card with number " + studentDto.getStudentCardDto().getCardNumber());
+        studentCardDto.setStudentId(studentId);
+        studentCardDto.setCardNumber(studentCardDto.getCardNumber().toUpperCase());
+        if (studentCardRepo.existsByCardNumberIgnoreCase(studentCardDto.getCardNumber()))
+            throw new BadRequestException("card with number " + studentCardDto.getCardNumber() + " is present");
+        StudentCard studentCard = studentCardRepo.save(studentCardMapper.toEntity(studentCardDto));
+        return studentCardMapper.toDto(studentCard);
     }
 
     @Transactional

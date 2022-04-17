@@ -21,6 +21,14 @@ server:
     error:
         include-message: always
 
+logging:
+    level:
+        web: DEBUG
+        org:
+            hibernate:
+                SQL: DEBUG
+
+
 eureka:
     client:
         service-url:
@@ -28,3 +36,5 @@ eureka:
         fetch-registry: true
         register-with-eureka: true
         enabled: true
+    instance:
+        hostname: localhost

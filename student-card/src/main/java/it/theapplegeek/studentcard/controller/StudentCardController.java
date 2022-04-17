@@ -1,7 +1,7 @@
 package it.theapplegeek.studentcard.controller;
 
+import it.theapplegeek.clients.studentcard.StudentCardDto;
 import it.theapplegeek.studentcard.model.StudentCard;
-import it.theapplegeek.studentcard.dto.StudentCardDto;
 import it.theapplegeek.studentcard.service.StudentCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +22,8 @@ public class StudentCardController {
 
     @PostMapping("student/{studentId}")
     public StudentCardDto addStudentCardAndAssignToStudent(@PathVariable("studentId") Long studentId,
-                                                           @Valid @RequestBody StudentCard studentCard) {
-        return studentCardService.addStudentCardAndAssignToStudent(studentId, studentCard);
+                                                           @Valid @RequestBody StudentCardDto studentCardDto) {
+        return studentCardService.addStudentCardAndAssignToStudent(studentId, studentCardDto);
     }
 
     @PutMapping("{cardId}")

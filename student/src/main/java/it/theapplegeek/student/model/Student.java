@@ -1,6 +1,5 @@
 package it.theapplegeek.student.model;
 
-import it.theapplegeek.studentcard.model.StudentCard;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -46,9 +45,6 @@ public class Student {
 
     @Transient
     private Integer age;
-
-    @Transient
-    private StudentCard studentCard;
 
     public Student(String firstName,
                    String lastName,

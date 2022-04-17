@@ -1,7 +1,7 @@
-package it.theapplegeek.student.dto;
+package it.theapplegeek.clients.student;
 
+import it.theapplegeek.clients.studentcard.StudentCardDto;
 import it.theapplegeek.shared.annotation.Name;
-import it.theapplegeek.studentcard.dto.StudentCardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

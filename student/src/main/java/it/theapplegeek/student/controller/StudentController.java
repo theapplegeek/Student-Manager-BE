@@ -1,6 +1,6 @@
 package it.theapplegeek.student.controller;
 
-import it.theapplegeek.student.dto.StudentDto;
+import it.theapplegeek.clients.student.StudentDto;
 import it.theapplegeek.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

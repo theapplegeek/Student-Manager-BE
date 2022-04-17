@@ -1,0 +1,3 @@
+clients:
+  student:
+    url: http://STUDENT/api/v1/student

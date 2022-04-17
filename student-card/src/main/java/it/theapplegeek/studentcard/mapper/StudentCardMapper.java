@@ -1,7 +1,7 @@
 package it.theapplegeek.studentcard.mapper;
 
+import it.theapplegeek.clients.studentcard.StudentCardDto;
 import it.theapplegeek.studentcard.model.StudentCard;
-import it.theapplegeek.studentcard.dto.StudentCardDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

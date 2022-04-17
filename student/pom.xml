@@ -9,6 +9,7 @@
         <version>1.0</version>
     </parent>
     <artifactId>student</artifactId>
+    <packaging>jar</packaging>
     <version>1.0</version>
 
     <name>student</name>
@@ -76,7 +77,7 @@
         </dependency>
         <dependency>
             <groupId>it.theapplegeek</groupId>
-            <artifactId>student-card</artifactId>
+            <artifactId>clients</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
@@ -87,6 +88,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

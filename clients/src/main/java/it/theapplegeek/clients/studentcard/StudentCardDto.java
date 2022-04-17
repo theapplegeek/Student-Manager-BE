@@ -1,4 +1,4 @@
-package it.theapplegeek.studentcard.dto;
+package it.theapplegeek.clients.studentcard;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

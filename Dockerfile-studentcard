@@ -1,0 +1,10 @@
+FROM maven:3.8.4-openjdk-17-slim AS build
+WORKDIR /app
+COPY ./ /app
+RUN mvn install
+RUN mvn -f /app/student-card/pom.xml package
+
+FROM openjdk:17.0.2-jdk
+WORKDIR /app
+COPY --from=build /app/student-card/target/student-card-1.0.jar student-card.jar
+CMD java -jar student-card.jar
