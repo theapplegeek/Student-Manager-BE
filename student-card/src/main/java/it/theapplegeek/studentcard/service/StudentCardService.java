@@ -36,11 +36,9 @@ public class StudentCardService {
     }
 
     public StudentCardDto addStudentCardAndAssignToStudent(Long studentId, StudentCardDto studentCardDto) {
+        if (studentCardRepo.existsByStudentId(studentId))
+            throw new BadRequestException("student with id " + studentId + " just have a card");
         StudentDto studentDto = studentClient.getStudent(studentId);
-//        Student student = studentRepo.findById(studentId)
-//                .orElseThrow(() -> new NotFoundException("student with id " + studentId + " not found"));
-        if (studentCardRepo.existsByStudentId(studentDto.getId()))
-            throw new BadRequestException("student with id " + studentId + " just have a card with number " + studentDto.getStudentCardDto().getCardNumber());
         studentCardDto.setStudentId(studentId);
         studentCardDto.setCardNumber(studentCardDto.getCardNumber().toUpperCase());
         if (studentCardRepo.existsByCardNumberIgnoreCase(studentCardDto.getCardNumber()))
@@ -53,14 +51,12 @@ public class StudentCardService {
     public StudentCardDto updateStudentCard(Long cardId, StudentCard newStudentCard, Boolean isRenewval) {
         StudentCard studentCard = studentCardRepo.findById(cardId)
                 .orElseThrow(() -> new NotFoundException("card with id " + cardId + " not found"));
-
         if (IsChangedChecker.isChanged(studentCard.getCardNumber(), newStudentCard.getCardNumber()))
             studentCard.setCardNumber(newStudentCard.getCardNumber());
         if (IsChangedChecker.isChanged(studentCard.getExpiredDate(), newStudentCard.getExpiredDate()))
             studentCard.setExpiredDate(newStudentCard.getExpiredDate());
         if (isRenewval)
             studentCard.setCreatedDate(LocalDate.now());
-
         return studentCardMapper.toDto(studentCard);
     }
 

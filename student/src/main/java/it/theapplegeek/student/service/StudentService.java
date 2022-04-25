@@ -1,12 +1,17 @@
 package it.theapplegeek.student.service;
 
+import feign.FeignException;
 import it.theapplegeek.clients.student.StudentDto;
+import it.theapplegeek.clients.studentcard.StudentCardClient;
+import it.theapplegeek.clients.studentcard.StudentCardDto;
 import it.theapplegeek.shared.exception.BadRequestException;
 import it.theapplegeek.shared.exception.NotFoundException;
 import it.theapplegeek.shared.util.IsChangedChecker;
 import it.theapplegeek.student.mapper.StudentMapper;
 import it.theapplegeek.student.model.Student;
 import it.theapplegeek.student.repository.StudentRepo;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,16 +27,29 @@ public class StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+    @Autowired
+    private StudentCardClient studentCardClient;
+
     public List<StudentDto> getStudents() {
         return studentRepo.findAll()
                 .stream()
-                .map((student) -> studentMapper.toDto(student))
+                .map((student) -> {
+                    StudentCardDto studentCardDto = studentCardClient.getStudentCardByStudentId(student.getId());
+                    StudentDto studentDto = studentMapper.toDto(student);
+                    if (studentCardDto != null) studentDto.setStudentCardDto(studentCardDto);
+                    return studentDto;
+                })
                 .toList();
     }
 
     public StudentDto getStudent(Long studentId) {
         return studentRepo.findById(studentId)
-                .map((student -> studentMapper.toDto(student)))
+                .map((student) -> {
+                    StudentCardDto studentCardDto = studentCardClient.getStudentCardByStudentId(student.getId());
+                    StudentDto studentDto = studentMapper.toDto(student);
+                    if (studentCardDto != null) studentDto.setStudentCardDto(studentCardDto);
+                    return studentDto;
+                })
                 .orElseThrow(() -> new NotFoundException("Student with id " + studentId + " not found"));
     }
 

@@ -23,7 +23,7 @@ server:
 
 logging:
     level:
-        web: DEBUG
+        web: INFO
         org:
             hibernate:
                 SQL: DEBUG

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
@@ -27,7 +28,9 @@ public class StudentDto {
     private LocalDate dob;
     @Email
     private String email;
+    @Null
     private Integer age;
+    @Null
     private StudentCardDto studentCardDto;
 
     // for add new student without card
