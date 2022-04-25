@@ -39,7 +39,7 @@ public class StudentCardService {
         StudentDto studentDto = studentClient.getStudent(studentId);
 //        Student student = studentRepo.findById(studentId)
 //                .orElseThrow(() -> new NotFoundException("student with id " + studentId + " not found"));
-        if (studentDto.getStudentCardDto() != null)
+        if (studentCardRepo.existsByStudentId(studentDto.getId()))
             throw new BadRequestException("student with id " + studentId + " just have a card with number " + studentDto.getStudentCardDto().getCardNumber());
         studentCardDto.setStudentId(studentId);
         studentCardDto.setCardNumber(studentCardDto.getCardNumber().toUpperCase());

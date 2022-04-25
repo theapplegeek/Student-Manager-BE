@@ -11,3 +11,10 @@ eureka:
   client:
     fetch-registry: false
     register-with-eureka: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"

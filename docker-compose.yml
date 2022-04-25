@@ -23,3 +23,17 @@ services:
       - SERVER_PORT=8081
     ports:
       - "8081:8081"
+
+  student:
+    build:
+      dockerfile: Dockerfile-student
+      context: ./
+    container_name: student
+    depends_on:
+      - eureka
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/student
+      - EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE=http://host.docker.internal:8761/eureka
+      - SERVER_PORT=8082
+    ports:
+      - "8082:8082"

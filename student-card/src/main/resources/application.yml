@@ -28,13 +28,14 @@ logging:
             hibernate:
                 SQL: DEBUG
 
-
 eureka:
     client:
         service-url:
-            defaultZone: http://localhost:8761/eureka
-        fetch-registry: true
-        register-with-eureka: true
-        enabled: true
+            defaultZone: http://user:password@localhost:8761/eureka
+#        fetch-registry: true
+#        register-with-eureka: true
+#        enabled: true
     instance:
-        hostname: localhost
+        leaseRenewalIntervalInSeconds: 10
+#        metadataMap:
+#            instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
