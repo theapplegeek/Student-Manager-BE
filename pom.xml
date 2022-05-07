@@ -100,23 +100,6 @@
                     <configuration>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
-<!--                        <annotationProcessorPaths>-->
-<!--                            <path>-->
-<!--                                <artifactId>lombok</artifactId>-->
-<!--                                <groupId>org.projectlombok</groupId>-->
-<!--                                <version>1.18.22</version>-->
-<!--                            </path>-->
-<!--                            <path>-->
-<!--                                <artifactId>mapstruct-processor</artifactId>-->
-<!--                                <groupId>org.mapstruct</groupId>-->
-<!--                                <version>${org.mapstruct.version}</version>-->
-<!--                            </path>-->
-<!--                            <path>-->
-<!--                                <artifactId>lombok-mapstruct-binding</artifactId>-->
-<!--                                <groupId>org.projectlombok</groupId>-->
-<!--                                <version>0.2.0</version>-->
-<!--                            </path>-->
-<!--                        </annotationProcessorPaths>-->
                     </configuration>
                 </plugin>
             </plugins>

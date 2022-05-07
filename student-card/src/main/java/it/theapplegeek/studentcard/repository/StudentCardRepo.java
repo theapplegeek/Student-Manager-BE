@@ -12,4 +12,6 @@ public interface StudentCardRepo extends JpaRepository<StudentCard, Long> {
     Boolean existsByCardNumberIgnoreCase(String cardNumber);
 
     boolean existsByStudentId(Long studentId);
+
+    void deleteByStudentId(Long studentId);
 }

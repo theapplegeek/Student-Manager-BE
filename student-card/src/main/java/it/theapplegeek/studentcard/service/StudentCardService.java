@@ -48,14 +48,14 @@ public class StudentCardService {
     }
 
     @Transactional
-    public StudentCardDto updateStudentCard(Long cardId, StudentCard newStudentCard, Boolean isRenewval) {
+    public StudentCardDto updateStudentCard(Long cardId, StudentCardDto newStudentCard, Boolean isRenewal) {
         StudentCard studentCard = studentCardRepo.findById(cardId)
                 .orElseThrow(() -> new NotFoundException("card with id " + cardId + " not found"));
         if (IsChangedChecker.isChanged(studentCard.getCardNumber(), newStudentCard.getCardNumber()))
             studentCard.setCardNumber(newStudentCard.getCardNumber());
         if (IsChangedChecker.isChanged(studentCard.getExpiredDate(), newStudentCard.getExpiredDate()))
             studentCard.setExpiredDate(newStudentCard.getExpiredDate());
-        if (isRenewval)
+        if (isRenewal)
             studentCard.setCreatedDate(LocalDate.now());
         return studentCardMapper.toDto(studentCard);
     }
@@ -64,5 +64,11 @@ public class StudentCardService {
         if (!studentCardRepo.existsById(cardId))
             throw new NotFoundException("card with id " + cardId + " not found");
         studentCardRepo.deleteById(cardId);
+    }
+
+    public void deleteStudentCardByStudentId(Long studentId) {
+        if (!studentCardRepo.existsByStudentId(studentId))
+            throw new NotFoundException("card with id " + studentId + " not found");
+        studentCardRepo.deleteByStudentId(studentId);
     }
 }

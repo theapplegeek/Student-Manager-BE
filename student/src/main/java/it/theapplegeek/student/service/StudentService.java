@@ -11,13 +11,13 @@ import it.theapplegeek.student.mapper.StudentMapper;
 import it.theapplegeek.student.model.Student;
 import it.theapplegeek.student.repository.StudentRepo;
 import lombok.extern.java.Log;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Log
 @Service
 public class StudentService {
 
@@ -34,7 +34,7 @@ public class StudentService {
         return studentRepo.findAll()
                 .stream()
                 .map((student) -> {
-                    StudentCardDto studentCardDto = studentCardClient.getStudentCardByStudentId(student.getId());
+                    StudentCardDto studentCardDto = this.getStudentCardByStudentId(student.getId());
                     StudentDto studentDto = studentMapper.toDto(student);
                     if (studentCardDto != null) studentDto.setStudentCardDto(studentCardDto);
                     return studentDto;
@@ -45,46 +45,91 @@ public class StudentService {
     public StudentDto getStudent(Long studentId) {
         return studentRepo.findById(studentId)
                 .map((student) -> {
-                    StudentCardDto studentCardDto = studentCardClient.getStudentCardByStudentId(student.getId());
+                    StudentCardDto studentCardDto = this.getStudentCardByStudentId(student.getId());
                     StudentDto studentDto = studentMapper.toDto(student);
                     if (studentCardDto != null) studentDto.setStudentCardDto(studentCardDto);
+                    log.info("===== Found student with id" + student.getId() + " =====");
                     return studentDto;
                 })
-                .orElseThrow(() -> new NotFoundException("Student with id " + studentId + " not found"));
+                .orElseThrow(() -> {
+                    log.warning("===== Student with id " + studentId + " not found =====");
+                    return new NotFoundException("Student with id " + studentId + " not found");
+                });
     }
 
     public StudentDto addStudent(StudentDto studentDto) {
-        if (studentRepo.existsByEmail(studentDto.getEmail()))
+        if (studentRepo.existsByEmail(studentDto.getEmail())) {
+            log.warning("===== Student with email " + studentDto.getEmail() + " is present =====");
             throw new BadRequestException("Student with email " + studentDto.getEmail() + " is present");
+        }
         Student student = studentRepo.save(studentMapper.toEntity(studentDto));
+        log.info("===== Student with id" + student.getId() + " created =====");
         return studentMapper.toDto(student);
     }
 
     @Transactional
     public StudentDto updateStudent(Long studentId, StudentDto newStudentDto) {
         Student student = studentRepo.findById(studentId)
-                .orElseThrow(() -> new NotFoundException("Student with id " + studentId + " not found"));
+                .orElseThrow(() -> {
+                    log.warning("===== Student with id " + studentId + " not found =====");
+                    return new NotFoundException("Student with id " + studentId + " not found");
+                });
         Student newStudent = studentMapper.toEntity(newStudentDto);
         if (IsChangedChecker.isChanged(student.getFirstName(), newStudent.getFirstName())) {
+            log.info("===== Update firstName from " + student.getFirstName() + " to " + newStudent.getFirstName() + " =====");
             student.setFirstName(newStudent.getFirstName());
         }
         if (IsChangedChecker.isChanged(student.getLastName(), newStudent.getLastName())) {
+            log.info("===== Update lastName from " + student.getLastName() + " to " + newStudent.getLastName() + " =====");
             student.setLastName(newStudent.getLastName());
         }
         if (IsChangedChecker.isChanged(student.getEmail(), newStudent.getEmail())) {
-            if (studentRepo.existsByEmail(newStudent.getEmail()))
-                // avviene eccezione -> rollback();
+            log.info("===== Update mail from " + student.getEmail() + " to " + newStudent.getEmail() + " =====");
+            if (studentRepo.existsByEmail(newStudent.getEmail())) {
+                log.warning("===== Email " + student.getEmail() + " is taken =====");
                 throw new BadRequestException("Email " + student.getEmail() + " is taken");
+            }
             student.setEmail(newStudent.getEmail());
         }
-
-        // se non avviene nessun errore -> commit();
-        return studentMapper.toDto(studentRepo.save(student));
+        Student updatedStudent = studentRepo.save(student);
+        log.info("===== Student with id " + student.getId() + " updated =====");
+        return studentMapper.toDto(updatedStudent);
     }
 
     public void deleteStudent(Long studentId) {
-        if (!studentRepo.existsById(studentId))
+        if (!studentRepo.existsById(studentId)) {
+            log.warning("===== Student with id " + studentId + " not found =====");
             throw new NotFoundException("Student with id " + studentId + " not found");
+        }
+        deleteStudentCard(studentId);
+        log.info("===== Student card of student with id " + studentId + " deleted =====");
         studentRepo.deleteById(studentId);
+        log.info("===== Student with id " + studentId + " deleted =====");
+    }
+
+    private StudentCardDto getStudentCardByStudentId(Long studentId) {
+        try {
+            log.info("===== Feign GET getStudentCardByStudentId -> get student card with student id " + studentId + " =====");
+            return studentCardClient.getStudentCardByStudentId(studentId);
+        } catch (FeignException e) {
+            log.warning("===== FeignException -> " + e.getMessage() + " =====");
+            return null;
+        } catch (NotFoundException e) {
+            log.warning("===== NotFoundException ->" + e.getMessage() + " =====");
+            return null;
+        }
+    }
+
+    private void deleteStudentCard(Long studentId) {
+        try {
+            log.info("===== Feign DELETE deleteStudentCardByStudentId -> delete student card of student with id " + studentId + " =====");
+            studentCardClient.deleteStudentCardByStudentId(studentId);
+        } catch (FeignException e) {
+            log.warning("===== FeignException -> " + e.getMessage() + " =====");
+            log.warning("===== Error when deleting a student card of student with id" + studentId + " =====");
+            throw new RuntimeException("Error when deleting a student card of student with id " + studentId);
+        } catch (NotFoundException e) {
+            log.warning("===== NotFoundException ->" + e.getMessage() + " =====");
+        }
     }
 }

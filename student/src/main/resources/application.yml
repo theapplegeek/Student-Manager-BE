@@ -1,39 +1,38 @@
 spring:
-    version: 2.6.6
-    application:
-        name: student
-        version: 1.0
-    datasource:
-        url: jdbc:postgresql://localhost:5432/student
-        username: postgres
-        password: Password01!
-    jpa:
-        hibernate:
-            ddl-auto: update
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.PostgreSQLDialect
-                format_sql: true
-        show-sql: true
+  version: 2.6.6
+  application:
+    name: student
+    version: 1.0
+  datasource:
+    url: jdbc:postgresql://localhost:5433/student
+    username: postgres
+    password: Password01!
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
 
 server:
-    port: 8080
-    error:
-        include-message: always
+  port: 8080
+  error:
+    include-message: always
 
 logging:
-    level:
-        web: INFO
-        org:
-            hibernate:
-                SQL: DEBUG
+  level:
+    web: debug
+    org.hibernate: info
+    it.theapplegeek.clients: debug
 
 eureka:
-    client:
-        service-url:
-            defaultZone: http://user:password@localhost:8761/eureka
-        fetch-registry: true
-        register-with-eureka: true
-        enabled: true
-    instance:
-        leaseRenewalIntervalInSeconds: 10
+  client:
+    service-url:
+      defaultZone: http://user:password@localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
+  instance:
+    leaseRenewalIntervalInSeconds: 10

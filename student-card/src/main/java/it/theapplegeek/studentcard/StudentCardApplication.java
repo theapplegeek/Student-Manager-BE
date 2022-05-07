@@ -1,6 +1,7 @@
 package it.theapplegeek.studentcard;
 
 import it.theapplegeek.shared.util.FakerGenerator;
+import it.theapplegeek.shared.util.JsonUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
-@Import({FakerGenerator.class})
+@Import({FakerGenerator.class, JsonUtils.class})
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients(
