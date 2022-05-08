@@ -37,6 +37,7 @@ public class StudentService {
                     StudentCardDto studentCardDto = this.getStudentCardByStudentId(student.getId());
                     StudentDto studentDto = studentMapper.toDto(student);
                     if (studentCardDto != null) studentDto.setStudentCardDto(studentCardDto);
+                    log.info("===== Found student with id " + student.getId() + " =====");
                     return studentDto;
                 })
                 .toList();
@@ -48,7 +49,7 @@ public class StudentService {
                     StudentCardDto studentCardDto = this.getStudentCardByStudentId(student.getId());
                     StudentDto studentDto = studentMapper.toDto(student);
                     if (studentCardDto != null) studentDto.setStudentCardDto(studentCardDto);
-                    log.info("===== Found student with id" + student.getId() + " =====");
+                    log.info("===== Found student with id " + student.getId() + " =====");
                     return studentDto;
                 })
                 .orElseThrow(() -> {
@@ -59,11 +60,11 @@ public class StudentService {
 
     public StudentDto addStudent(StudentDto studentDto) {
         if (studentRepo.existsByEmail(studentDto.getEmail())) {
-            log.warning("===== Student with email " + studentDto.getEmail() + " is present =====");
-            throw new BadRequestException("Student with email " + studentDto.getEmail() + " is present");
+            log.warning("===== Student with email " + studentDto.getEmail() + " is taken =====");
+            throw new BadRequestException("Student with email " + studentDto.getEmail() + " is taken");
         }
         Student student = studentRepo.save(studentMapper.toEntity(studentDto));
-        log.info("===== Student with id" + student.getId() + " created =====");
+        log.info("===== Student with id " + student.getId() + " created =====");
         return studentMapper.toDto(student);
     }
 
@@ -112,10 +113,10 @@ public class StudentService {
             log.info("===== Feign GET getStudentCardByStudentId -> get student card with student id " + studentId + " =====");
             return studentCardClient.getStudentCardByStudentId(studentId);
         } catch (FeignException e) {
-            log.warning("===== FeignException -> " + e.getMessage() + " =====");
+            log.warning("===== FeignException -> " + e.getCause() + " =====");
             return null;
         } catch (NotFoundException e) {
-            log.warning("===== NotFoundException ->" + e.getMessage() + " =====");
+            log.warning("===== NotFoundException -> " + e.getCause() + " =====");
             return null;
         }
     }
@@ -125,11 +126,11 @@ public class StudentService {
             log.info("===== Feign DELETE deleteStudentCardByStudentId -> delete student card of student with id " + studentId + " =====");
             studentCardClient.deleteStudentCardByStudentId(studentId);
         } catch (FeignException e) {
-            log.warning("===== FeignException -> " + e.getMessage() + " =====");
-            log.warning("===== Error when deleting a student card of student with id" + studentId + " =====");
+            log.warning("===== FeignException -> " + e.getCause() + " =====");
+            log.warning("===== Error when deleting a student card of student with id " + studentId + " =====");
             throw new RuntimeException("Error when deleting a student card of student with id " + studentId);
         } catch (NotFoundException e) {
-            log.warning("===== NotFoundException ->" + e.getMessage() + " =====");
+            log.warning("===== NotFoundException ->" + e.getCause() + " =====");
         }
     }
 }

@@ -22,10 +22,14 @@ server:
     include-message: always
 
 logging:
+  file.name: './logs/Student.log'
   level:
     web: debug
     org.hibernate: info
     it.theapplegeek.clients: debug
+  logback:
+    rolling policy:
+      max-file-size: 100MB
 
 eureka:
   client:
