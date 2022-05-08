@@ -11,13 +11,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Past;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentDto {
+public class StudentDto implements Serializable {
     @Min(1)
     private Long id;
     @Name

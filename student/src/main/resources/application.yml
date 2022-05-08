@@ -24,7 +24,7 @@ server:
 logging:
   file.name: './logs/Student.log'
   level:
-    web: debug
+    web: info
     org.hibernate: info
     it.theapplegeek.clients: debug
   logback:

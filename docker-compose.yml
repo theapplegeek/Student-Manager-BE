@@ -39,7 +39,6 @@ services:
     build:
       dockerfile: Dockerfile-studentcard
       context: ./
-    container_name: student-card
     depends_on:
       - eureka-server
       - student-card-db
@@ -54,7 +53,6 @@ services:
     build:
       dockerfile: Dockerfile-student
       context: ./
-    container_name: student
     depends_on:
       - eureka-server
       - student-db

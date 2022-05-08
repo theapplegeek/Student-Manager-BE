@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
@@ -24,7 +25,7 @@ import java.util.Objects;
                 )
         }
 )
-public class StudentCard {
+public class StudentCard implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

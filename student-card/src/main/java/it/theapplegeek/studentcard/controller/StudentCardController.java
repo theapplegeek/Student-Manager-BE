@@ -58,4 +58,10 @@ public class StudentCardController {
         log.info("===== DELETE deleteStudentCard -> delete a student card of student with id " + studentId + " =====");
         studentCardService.deleteStudentCardByStudentId(studentId);
     }
+
+    @DeleteMapping("delete/cache")
+    public void cleancache() {
+        log.info("===== DELETE cleancache -> clean all caches =====");
+        this.studentCardService.cleanCaches();
+    }
 }

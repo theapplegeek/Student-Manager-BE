@@ -21,6 +21,7 @@
         <spring.cloud-version>2021.0.1</spring.cloud-version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <con.github.javafaker.version>1.0.2</con.github.javafaker.version>
+        <com.hazelcast.version>4.2.4</com.hazelcast.version>
     </properties>
 
     <modules>
@@ -56,6 +57,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${org.mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-all</artifactId>
+                <version>${com.hazelcast.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

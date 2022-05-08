@@ -1,0 +1,94 @@
+2022-05-08 20:07:16.324  INFO 9048 --- [main] i.t.student.StudentApplication           : Starting StudentApplication using Java 17.0.1 on Acer-PC with PID 9048 (C:\Users\weibi\theapplegeek\git\student-manager-be\student\target\classes started by weibi in C:\Users\weibi\theapplegeek\git\student-manager-be)
+2022-05-08 20:07:16.339  INFO 9048 --- [main] i.t.student.StudentApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-05-08 20:07:17.084  INFO 9048 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-08 20:07:17.147  INFO 9048 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 1 JPA repository interfaces.
+2022-05-08 20:07:17.350  INFO 9048 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=8e701d99-f11b-34e3-906e-b471a693919c
+2022-05-08 20:07:17.710  INFO 9048 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-05-08 20:07:17.710  INFO 9048 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-05-08 20:07:17.710  INFO 9048 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.60]
+2022-05-08 20:07:17.898  INFO 9048 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-05-08 20:07:17.898  INFO 9048 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1519 ms
+2022-05-08 20:07:17.913 DEBUG 9048 --- [main] o.s.b.w.s.ServletContextInitializerBeans : Mapping filters: characterEncodingFilter urls=[/*] order=-2147483648, formContentFilter urls=[/*] order=-9900, requestContextFilter urls=[/*] order=-105
+2022-05-08 20:07:17.913 DEBUG 9048 --- [main] o.s.b.w.s.ServletContextInitializerBeans : Mapping servlets: dispatcherServlet urls=[/]
+2022-05-08 20:07:17.945  INFO 9048 --- [main] c.h.i.config.AbstractConfigLocator       : Loading 'hazelcast.yaml' from the classpath.
+2022-05-08 20:07:18.023  WARN 9048 --- [main] c.h.i.impl.HazelcastInstanceFactory      : Hazelcast is starting in a Java modular environment (Java 9 and newer) but without proper access to required Java packages. Use additional Java arguments to provide Hazelcast access to Java internal API. The internal API access is used to get the best performance results. Arguments to be used:
+ --add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+2022-05-08 20:07:18.149  INFO 9048 --- [main] com.hazelcast.system                     : [192.168.1.45]:5701 [dev] [4.2.4] Hazelcast 4.2.4 (20211220 - 25f0049) starting at [192.168.1.45]:5701
+2022-05-08 20:07:18.508  INFO 9048 --- [main] com.hazelcast.instance.impl.Node         : [192.168.1.45]:5701 [dev] [4.2.4] Using Multicast discovery
+2022-05-08 20:07:18.524  WARN 9048 --- [main] com.hazelcast.cp.CPSubsystem             : [192.168.1.45]:5701 [dev] [4.2.4] CP Subsystem is not enabled. CP data structures will operate in UNSAFE mode! Please note that UNSAFE mode will not provide strong consistency guarantees.
+2022-05-08 20:07:18.669  INFO 9048 --- [main] c.h.internal.diagnostics.Diagnostics     : [192.168.1.45]:5701 [dev] [4.2.4] Diagnostics disabled. To enable add -Dhazelcast.diagnostics.enabled=true to the JVM arguments.
+2022-05-08 20:07:18.684  INFO 9048 --- [main] com.hazelcast.core.LifecycleService      : [192.168.1.45]:5701 [dev] [4.2.4] [192.168.1.45]:5701 is STARTING
+2022-05-08 20:07:21.532  INFO 9048 --- [main] c.h.internal.cluster.ClusterService      : [192.168.1.45]:5701 [dev] [4.2.4] 
+
+Members {size:1, ver:1} [
+	Member [192.168.1.45]:5701 - 9fd43d14-e7c4-4769-b41f-d4acbfc68c8c this
+]
+
+2022-05-08 20:07:21.543  INFO 9048 --- [main] com.hazelcast.core.LifecycleService      : [192.168.1.45]:5701 [dev] [4.2.4] [192.168.1.45]:5701 is STARTED
+2022-05-08 20:07:21.651  INFO 9048 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-08 20:07:21.743  INFO 9048 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.7.Final
+2022-05-08 20:07:21.899  INFO 9048 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-08 20:07:21.977  INFO 9048 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-05-08 20:07:22.140  INFO 9048 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-05-08 20:07:22.150  INFO 9048 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-05-08 20:07:22.777  INFO 9048 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-08 20:07:22.785  INFO 9048 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-08 20:07:23.133  WARN 9048 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-08 20:07:23.211  INFO 9048 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'student-card' URL not provided. Will try picking an instance via load-balancing.
+2022-05-08 20:07:23.415 DEBUG 9048 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-05-08 20:07:23.462 DEBUG 9048 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2022-05-08 20:07:23.493 DEBUG 9048 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-05-08 20:07:23.493 DEBUG 9048 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-05-08 20:07:23.793  INFO 9048 --- [main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2022-05-08 20:07:23.996  WARN 9048 --- [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2022-05-08 20:07:24.074  INFO 9048 --- [main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2022-05-08 20:07:24.121  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2022-05-08 20:07:24.121  INFO 9048 --- [main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-05-08 20:07:24.136  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2022-05-08 20:07:24.136  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2022-05-08 20:07:24.136  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2022-05-08 20:07:24.136  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2022-05-08 20:07:24.136  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2022-05-08 20:07:24.136  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2022-05-08 20:07:24.136  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2022-05-08 20:07:24.215 DEBUG 9048 --- [main] o.s.web.client.RestTemplate              : HTTP GET http://user:password@localhost:8761/eureka/apps/
+2022-05-08 20:07:24.309 DEBUG 9048 --- [main] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2022-05-08 20:07:24.388 DEBUG 9048 --- [main] o.s.web.client.RestTemplate              : Response 200 OK
+2022-05-08 20:07:24.390 DEBUG 9048 --- [main] o.s.web.client.RestTemplate              : Reading to [org.springframework.cloud.netflix.eureka.http.EurekaApplications]
+2022-05-08 20:07:24.403  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2022-05-08 20:07:24.403  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 10
+2022-05-08 20:07:24.418  INFO 9048 --- [main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2022-05-08 20:07:24.434  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1652033244434 with initial instances count: 2
+2022-05-08 20:07:24.434  INFO 9048 --- [main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application STUDENT with eureka with status UP
+2022-05-08 20:07:24.434  INFO 9048 --- [main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1652033244434, current=UP, previous=STARTING]
+2022-05-08 20:07:24.434  INFO 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STUDENT/host.docker.internal:student:8080: registering service...
+2022-05-08 20:07:24.434 DEBUG 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] o.s.web.client.RestTemplate              : HTTP POST http://user:password@localhost:8761/eureka/apps/STUDENT
+2022-05-08 20:07:24.449 DEBUG 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2022-05-08 20:07:24.449  INFO 9048 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-08 20:07:24.449  INFO 9048 --- [main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8080
+2022-05-08 20:07:24.464 DEBUG 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] o.s.web.client.RestTemplate              : Writing [InstanceInfo [instanceId = host.docker.internal:student:8080, appName = STUDENT, hostName = host.docker.internal, status = UP, ipAddr = 192.168.1.45, port = 8080, securePort = 443, dataCenterInfo = com.netflix.appinfo.MyDataCenterInfo@2e53f980] as "application/json"
+2022-05-08 20:07:24.493 DEBUG 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] o.s.web.client.RestTemplate              : Response 204 NO_CONTENT
+2022-05-08 20:07:24.494  INFO 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STUDENT/host.docker.internal:student:8080 - registration status: 204
+2022-05-08 20:07:24.620  INFO 9048 --- [main] i.t.student.StudentApplication           : Started StudentApplication in 8.943 seconds (JVM running for 9.757)
+2022-05-08 20:07:34.434 DEBUG 9048 --- [DiscoveryClient-HeartbeatExecutor-0] o.s.web.client.RestTemplate              : HTTP PUT http://user:password@localhost:8761/eureka/apps/STUDENT/host.docker.internal:student:8080?status=UP&lastDirtyTimestamp=1652033244434
+2022-05-08 20:07:34.450 DEBUG 9048 --- [DiscoveryClient-HeartbeatExecutor-0] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2022-05-08 20:07:34.472 DEBUG 9048 --- [DiscoveryClient-HeartbeatExecutor-0] o.s.web.client.RestTemplate              : Response 200 OK
+2022-05-08 20:07:36.922  INFO 9048 --- [hz.ShutdownThread] com.hazelcast.instance.impl.Node         : [192.168.1.45]:5701 [dev] [4.2.4] Running shutdown hook... Current state: ACTIVE
+2022-05-08 20:07:36.922  INFO 9048 --- [SpringApplicationShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application STUDENT with eureka with status DOWN
+2022-05-08 20:07:36.922  INFO 9048 --- [SpringApplicationShutdownHook] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1652033256922, current=DOWN, previous=UP]
+2022-05-08 20:07:36.922  INFO 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STUDENT/host.docker.internal:student:8080: registering service...
+2022-05-08 20:07:36.922 DEBUG 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] o.s.web.client.RestTemplate              : HTTP POST http://user:password@localhost:8761/eureka/apps/STUDENT
+2022-05-08 20:07:36.922 DEBUG 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2022-05-08 20:07:36.922 DEBUG 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] o.s.web.client.RestTemplate              : Writing [InstanceInfo [instanceId = host.docker.internal:student:8080, appName = STUDENT, hostName = host.docker.internal, status = DOWN, ipAddr = 192.168.1.45, port = 8080, securePort = 443, dataCenterInfo = com.netflix.appinfo.MyDataCenterInfo@2e53f980] as "application/json"
+2022-05-08 20:07:36.940 DEBUG 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] o.s.web.client.RestTemplate              : Response 204 NO_CONTENT
+2022-05-08 20:07:36.940  INFO 9048 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STUDENT/host.docker.internal:student:8080 - registration status: 204
+2022-05-08 20:07:36.958  INFO 9048 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-08 20:07:36.958  INFO 9048 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-05-08 20:07:36.970  INFO 9048 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-05-08 20:07:36.971  INFO 9048 --- [SpringApplicationShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2022-05-08 20:07:39.977  INFO 9048 --- [SpringApplicationShutdownHook] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2022-05-08 20:07:39.993 DEBUG 9048 --- [SpringApplicationShutdownHook] o.s.web.client.RestTemplate              : HTTP DELETE http://user:password@localhost:8761/eureka/apps/STUDENT/host.docker.internal:student:8080
+2022-05-08 20:07:39.993 DEBUG 9048 --- [SpringApplicationShutdownHook] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2022-05-08 20:07:40.003 DEBUG 9048 --- [SpringApplicationShutdownHook] o.s.web.client.RestTemplate              : Response 200 OK
+2022-05-08 20:07:40.004  INFO 9048 --- [SpringApplicationShutdownHook] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STUDENT/host.docker.internal:student:8080 - deregister  status: 200
+2022-05-08 20:07:40.056  INFO 9048 --- [SpringApplicationShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient

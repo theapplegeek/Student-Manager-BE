@@ -53,4 +53,16 @@ public class StudentController {
         log.info("===== DELETE deleteStudent -> delete a existing student with id " + studentId + " =====");
         studentService.deleteStudent(studentId);
     }
+
+    @DeleteMapping("cache/delete/{studentId}")
+    public void cleanStudentCacheById(@PathVariable("studentId") Long studentId) {
+        log.info("===== DELETE cleanStudentCacheById -> clean cache of student with id " + studentId + " =====");
+        this.studentService.cleanStudentCacheById(studentId);
+    }
+
+    @DeleteMapping("cache/delete")
+    public void cleancache() {
+        log.info("===== DELETE cleancache -> clean all caches =====");
+        this.studentService.cleanCaches();
+    }
 }

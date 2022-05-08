@@ -1,20 +1,25 @@
 package it.theapplegeek.studentcard.service;
 
-import it.theapplegeek.clients.student.StudentClient;
-import it.theapplegeek.clients.student.StudentDto;
 import it.theapplegeek.clients.studentcard.StudentCardDto;
 import it.theapplegeek.shared.exception.BadRequestException;
 import it.theapplegeek.shared.exception.NotFoundException;
-import it.theapplegeek.studentcard.model.StudentCard;
-import it.theapplegeek.studentcard.mapper.StudentCardMapper;
-import it.theapplegeek.studentcard.repository.StudentCardRepo;
 import it.theapplegeek.shared.util.IsChangedChecker;
+import it.theapplegeek.studentcard.feign.StudentFeignClient;
+import it.theapplegeek.studentcard.mapper.StudentCardMapper;
+import it.theapplegeek.studentcard.model.StudentCard;
+import it.theapplegeek.studentcard.repository.StudentCardRepo;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Objects;
 
 @Log
 @Service
@@ -27,8 +32,12 @@ public class StudentCardService {
     private StudentCardMapper studentCardMapper;
 
     @Autowired
-    private StudentClient studentClient;
+    private StudentFeignClient studentClient;
 
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Cacheable(value = "student-card", key = "#studentId", sync = true)
     public StudentCardDto getStudentCardByStudentId(Long studentId) {
         return studentCardRepo.findByStudentId(studentId)
                 .map((studentCard) -> {
@@ -52,6 +61,7 @@ public class StudentCardService {
             log.warning("===== Card with number " + studentCardDto.getCardNumber() + " is taken =====");
             throw new BadRequestException("Card with number " + studentCardDto.getCardNumber() + " is taken");
         }
+        studentClient.cleanStudentCacheById(studentId);
         StudentCard studentCard = studentCardRepo.save(studentCardMapper.toEntity(studentCardDto));
         log.info("===== Card with id " + studentCard.getId() + " created =====");
         return studentCardMapper.toDto(studentCard);
@@ -64,6 +74,7 @@ public class StudentCardService {
                     log.warning("===== Card with id " + cardId + " not found =====");
                     throw new NotFoundException("Card with id " + cardId + " not found");
                 });
+        studentClient.cleanStudentCacheById(studentCard.getStudentId());
         if (IsChangedChecker.isChanged(studentCard.getCardNumber(), newStudentCard.getCardNumber())) {
             log.info("===== Update card number from " + studentCard.getCardNumber() + " to " + newStudentCard.getCardNumber() + " =====");
             studentCard.setCardNumber(newStudentCard.getCardNumber());
@@ -77,24 +88,47 @@ public class StudentCardService {
             studentCard.setCreatedDate(LocalDate.now());
         }
         log.info("===== Student card with id " + studentCard.getId() + " updated =====");
+        cleanStudentCardCacheByStudentId(studentCard.getStudentId());
         return studentCardMapper.toDto(studentCard);
     }
 
     public void deleteStudentCard(Long cardId) {
-        if (!studentCardRepo.existsById(cardId)) {
-            log.warning("===== Card with id " + cardId + " not found =====");
-            throw new NotFoundException("Card with id " + cardId + " not found");
-        }
-        studentCardRepo.deleteById(cardId);
-        log.info("===== Student card with id " + cardId + " deleted =====");
+        studentCardRepo.findById(cardId)
+                .map(studentCard -> {
+                    studentClient.cleanStudentCacheById(studentCard.getStudentId());
+                    studentCardRepo.deleteById(cardId);
+                    log.info("===== Student card with id " + cardId + " deleted =====");
+                    cleanStudentCardCacheByStudentId(studentCard.getStudentId());
+                    return studentCard;
+                }).orElseThrow(() -> {
+                    log.warning("===== Card with id " + cardId + " not found =====");
+                    throw new NotFoundException("Card with id " + cardId + " not found");
+                });
     }
 
+    @Caching(evict = {
+            @CacheEvict(value = "student-card", key = "#studentId")
+    })
+    @Transactional
     public void deleteStudentCardByStudentId(Long studentId) {
         if (!studentCardRepo.existsByStudentId(studentId)) {
             log.warning("===== Card with id " + studentId + " not found =====");
             throw new NotFoundException("Card with id " + studentId + " not found");
         }
+        studentClient.cleanStudentCacheById(studentId);
         studentCardRepo.deleteByStudentId(studentId);
         log.info("===== Student card of student with id " + studentId + " deleted =====");
+    }
+
+    public void cleanCaches() {
+        Collection<String> items = cacheManager.getCacheNames();
+        items.forEach((item) -> {
+            Objects.requireNonNull(cacheManager.getCache(item)).clear();
+            log.info(String.format("===== deleted cache %s =====", item));
+        });
+    }
+
+    private void cleanStudentCardCacheByStudentId(Long studentId) {
+        Objects.requireNonNull(cacheManager.getCache("student-card")).evict(studentId);
     }
 }

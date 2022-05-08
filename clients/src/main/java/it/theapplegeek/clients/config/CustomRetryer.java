@@ -24,7 +24,7 @@ public class CustomRetryer implements Retryer {
         if (attempt++ >= maxAttempts) {
             throw e;
         } else {
-            log.warning(String.format("Tentativo di connessione %s", attempt));
+            log.warning(String.format("===== Tentativo di connessione %s =====", attempt));
         }
 
         try {
