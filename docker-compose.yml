@@ -6,6 +6,7 @@ services:
   student-card-db:
     image: postgres:14.2-alpine
     container_name: student-card-db
+    restart: always
     environment:
       - POSTGRES_PASSWORD=Password01!
       - POSTGRES_DB=student_card
@@ -17,6 +18,7 @@ services:
   student-db:
     image: postgres:14.2-alpine
     container_name: student-db
+    restart: always
     environment:
       - POSTGRES_PASSWORD=Password01!
       - POSTGRES_DB=student
@@ -30,15 +32,31 @@ services:
       dockerfile: Dockerfile-eureka
       context: ./
     container_name: eureka-server
+    restart: always
     environment:
       - SERVER_PORT=8761
     ports:
       - "8761:8761"
 
+  api-gateway:
+    build:
+      dockerfile: Dockerfile-apigateway
+      context: ./
+    container_name: api-gateway
+    restart: always
+    depends_on:
+      - eureka-server
+    environment:
+      - EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - SERVER_PORT=8765
+    ports:
+      - "8765:8765"
+
   student-card:
     build:
       dockerfile: Dockerfile-studentcard
       context: ./
+    restart: always
     depends_on:
       - eureka-server
       - student-card-db
@@ -53,6 +71,7 @@ services:
     build:
       dockerfile: Dockerfile-student
       context: ./
+    restart: always
     depends_on:
       - eureka-server
       - student-db
