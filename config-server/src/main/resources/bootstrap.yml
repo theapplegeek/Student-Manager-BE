@@ -1,0 +1,16 @@
+spring:
+  version: 2.6.6
+  application:
+    name: config-server
+    version: 1.0
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitlab.com/student262/student-manager-config.git
+          username: TheAppleGeeK
+          password: glpat-DxzszDxSghbQWsqJzcz9
+
+server:
+  port: 8888
+

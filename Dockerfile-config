@@ -1,0 +1,12 @@
+FROM maven:3.8.4-openjdk-17-slim AS build
+WORKDIR /app
+COPY pom.xml /app/pom.xml
+COPY ./config-server/pom.xml /app/config-server/pom.xml
+RUN mvn -f /app/config-server/pom.xml dependency:go-offline
+COPY ./config-server/src /app/config-server/src
+RUN mvn -f /app/config-server/pom.xml package
+
+FROM openjdk:17.0.2-jdk
+WORKDIR /app
+COPY --from=build /app/config-server/target/config-server-1.0.jar config.jar
+CMD java -jar config.jar

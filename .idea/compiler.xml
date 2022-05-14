@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
         <module name="shared" />
+        <module name="config-server" />
         <module name="clients" />
         <module name="eureka-server" />
       </profile>

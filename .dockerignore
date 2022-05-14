@@ -1,0 +1,10 @@
+.idea
+.git
+.dockerignore
+.gitignore
+docker-compose.yml
+Dockerfile-apigateway
+Dockerfile-config
+Dockerfile-eureka
+Dockerfile-student
+Dockerfile-studentcard
