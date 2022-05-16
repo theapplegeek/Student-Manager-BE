@@ -10,7 +10,15 @@ spring:
           uri: https://gitlab.com/student262/student-manager-config.git
           username: TheAppleGeeK
           password: glpat-DxzszDxSghbQWsqJzcz9
+          default-label: main
 
 server:
   port: 8888
 
+logging:
+  file.name: './logs/config-server.log'
+  level:
+    org.springframework.cloud: info
+  logback:
+    rolling policy:
+      max-file-size: 100MB

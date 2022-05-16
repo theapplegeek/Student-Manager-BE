@@ -27,14 +27,29 @@ services:
     volumes:
       - student-db:/var/lib/postgresql/data/
 
+  config-server:
+    build:
+      dockerfile: Dockerfile-config
+      context: ./
+    container_name: config-server
+    restart: always
+    environment:
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT-LABEL=docker
+      - SERVER_PORT=8888
+    ports:
+      - "8888:8888"
+
   eureka-server:
     build:
       dockerfile: Dockerfile-eureka
       context: ./
     container_name: eureka-server
     restart: always
+    depends_on:
+      - config-server
     environment:
-      - SERVER_PORT=8761
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+      - SPRING_CLOUD_CONFIG_LABEL=docker
     ports:
       - "8761:8761"
 
@@ -47,20 +62,10 @@ services:
     depends_on:
       - eureka-server
     environment:
-      - EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE=http://eureka-server:8761/eureka
-      - SERVER_PORT=8765
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+      - SPRING_CLOUD_CONFIG_LABEL=docker
     ports:
       - "8765:8765"
-
-  config-server:
-    build:
-      dockerfile: Dockerfile-config
-      context: ./
-    restart: always
-    environment:
-      - SERVER_PORT=8888
-    ports:
-      - "8888:8888"
 
   student-card:
     build:
@@ -72,10 +77,8 @@ services:
       - student-card-db
       - config-server
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://student-card-db/student_card
-      - EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE=http://eureka-server:8761/eureka
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
-      - SERVER_PORT=8081
+      - SPRING_CLOUD_CONFIG_LABEL=docker
     ports:
       - "8080-8089:8081"
 
@@ -89,9 +92,7 @@ services:
       - student-db
       - config-server
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://student-db/student
-      - EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE=http://eureka-server:8761/eureka
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
-      - SERVER_PORT=8082
+      - SPRING_CLOUD_CONFIG_LABEL=docker
     ports:
       - "8090-8099:8082"

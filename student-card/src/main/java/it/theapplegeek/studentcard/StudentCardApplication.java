@@ -15,6 +15,7 @@ import org.springframework.context.annotation.PropertySources;
 @Import({FakerGenerator.class, JsonUtils.class})
 @SpringBootApplication
 @EnableEurekaClient
+@EnableDiscoveryClient
 @EnableFeignClients(basePackages = "it.theapplegeek.clients")
 @EnableCaching
 public class StudentCardApplication {

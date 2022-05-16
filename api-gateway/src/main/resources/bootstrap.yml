@@ -1,7 +1,7 @@
 spring:
   version: 2.6.6
   application:
-    name: student
+    name: api-gateway
     version: 1.0
   profiles:
     active: ${spring.cloud.config.profile}
@@ -13,6 +13,3 @@ spring:
       fail-fast: true
       retry:
         max-attempts: 10
-  devtools:
-    restart:
-      enabled: true
