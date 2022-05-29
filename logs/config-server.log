@@ -1,0 +1,28 @@
+2022-05-29 18:09:11.820  INFO 8397 --- [restartedMain] i.t.c.configServerApplication            : No active profile set, falling back to 1 default profile: "default"
+2022-05-29 18:09:12.483  INFO 8397 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=c2b55c29-cdeb-392f-8173-914d31c472f9
+2022-05-29 18:09:12.838  INFO 8397 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2022-05-29 18:09:12.848  INFO 8397 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-05-29 18:09:12.848  INFO 8397 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.60]
+2022-05-29 18:09:12.905  INFO 8397 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-05-29 18:09:12.905  INFO 8397 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1076 ms
+2022-05-29 18:09:13.457  INFO 8397 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-05-29 18:09:13.527  INFO 8397 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
+2022-05-29 18:09:13.569  INFO 8397 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2022-05-29 18:09:13.583  INFO 8397 --- [restartedMain] i.t.c.configServerApplication            : Started configServerApplication in 2.351 seconds (JVM running for 2.795)
+2022-05-29 18:09:14.112  INFO 8397 --- [RMI TCP Connection(1)-192.168.1.49] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-29 18:09:14.113  INFO 8397 --- [RMI TCP Connection(1)-192.168.1.49] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-05-29 18:09:14.114  INFO 8397 --- [RMI TCP Connection(1)-192.168.1.49] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2022-05-29 18:12:30.010  INFO 8419 --- [restartedMain] i.t.c.configServerApplication            : No active profile set, falling back to 1 default profile: "default"
+2022-05-29 18:12:30.472  INFO 8419 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=c2b55c29-cdeb-392f-8173-914d31c472f9
+2022-05-29 18:12:30.734  INFO 8419 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2022-05-29 18:12:30.738  INFO 8419 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-05-29 18:12:30.738  INFO 8419 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.60]
+2022-05-29 18:12:30.778  INFO 8419 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-05-29 18:12:30.778  INFO 8419 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 752 ms
+2022-05-29 18:12:31.202  INFO 8419 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-05-29 18:12:31.258  INFO 8419 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
+2022-05-29 18:12:31.304  INFO 8419 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2022-05-29 18:12:31.320  INFO 8419 --- [restartedMain] i.t.c.configServerApplication            : Started configServerApplication in 1.713 seconds (JVM running for 2.056)
+2022-05-29 18:12:31.503  INFO 8419 --- [RMI TCP Connection(2)-192.168.1.49] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-29 18:12:31.504  INFO 8419 --- [RMI TCP Connection(2)-192.168.1.49] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-05-29 18:12:31.504  INFO 8419 --- [RMI TCP Connection(2)-192.168.1.49] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms

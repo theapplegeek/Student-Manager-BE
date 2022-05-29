@@ -95,4 +95,4 @@ services:
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
       - SPRING_CLOUD_CONFIG_LABEL=docker
     ports:
-      - "8090-8099:8082"
+      - "8090-8099:8080"

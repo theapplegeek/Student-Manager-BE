@@ -1,8 +1,14 @@
 spring:
+  #==========================================================
+  #= SPRING APPLICATION
+  #==========================================================
   version: 2.6.6
   application:
     name: config-server
     version: 1.0
+  #==========================================================
+  #= SPRING CLOUD CONFIG SERVER WITH GIT
+  #==========================================================
   cloud:
     config:
       server:
@@ -12,9 +18,15 @@ spring:
           password: glpat-DxzszDxSghbQWsqJzcz9
           default-label: main
 
+#==========================================================
+#= SERVER
+#==========================================================
 server:
   port: 8888
 
+#==========================================================
+#= LOGGING
+#==========================================================
 logging:
   file.name: './logs/config-server.log'
   level:
@@ -22,3 +34,27 @@ logging:
   logback:
     rolling policy:
       max-file-size: 100MB
+
+#==============================================================
+#= SPRING ACTUATOR
+#==============================================================
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+#==============================================================
+#= SPRING ACTUATOR INFO
+#==============================================================
+info:
+  application:
+    name: ${spring.application.name}
+    version: ${spring.application.version}
+    spring-version: ${spring.version}
+  support:
+    author: "TheAppleGeeK"
+    mail: "weibin.xu.dev@gmail.com"

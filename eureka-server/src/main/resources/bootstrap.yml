@@ -1,10 +1,16 @@
 spring:
+  #==========================================================
+  #= SPRING APPLICATION
+  #==========================================================
   version: 2.6.6
   application:
     name: eureka-server
     version: 1.0
   profiles:
     active: ${spring.cloud.config.profile}
+  #==========================================================
+  #= SPRING CLOUD CONFIG SERVER
+  #==========================================================
   cloud:
     config:
       uri: http://localhost:8888
