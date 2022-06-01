@@ -17,6 +17,13 @@ spring:
           username: TheAppleGeeK
           password: glpat-DxzszDxSghbQWsqJzcz9
           default-label: main
+    bus:
+      enabled: true
+  kafka:
+    bootstrap-servers:
+      - ${KAFKA_ADDR}:${spring.kafka.url}
+    client-id: ${spring.application.name}:${random.uuid}
+    url: http://localhost:9092
 
 #==========================================================
 #= SERVER

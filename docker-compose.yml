@@ -2,6 +2,7 @@ version: "3.9"
 volumes:
   student-card-db:
   student-db:
+  rabbitmq-data:
 services:
   student-card-db:
     image: postgres:14.2-alpine
@@ -27,14 +28,56 @@ services:
     volumes:
       - student-db:/var/lib/postgresql/data/
 
+#  rabbitmq:
+#    image: rabbitmq:3.10.2-management-alpine
+#    container_name: rabbitmq
+#    restart: always
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=rabbitmq
+#      - RABBITMQ_DEFAULT_PASS=admin
+#    volumes:
+#      - rabbitmq-data:/var/lib/rabbitmq
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.1.1
+    restart: always
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:7.1.1
+    restart: always
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
   config-server:
     build:
       dockerfile: Dockerfile-config
       context: ./
     container_name: config-server
     restart: always
+    depends_on:
+      - kafka
     environment:
-      - SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT-LABEL=docker
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT-LABEL=docker\
+      - SPRING_KAFKA_URL=http://kafka:9092/
       - SERVER_PORT=8888
     ports:
       - "8888:8888"
@@ -91,6 +134,7 @@ services:
       - eureka-server
       - student-db
       - config-server
+      - kafka
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
       - SPRING_CLOUD_CONFIG_LABEL=docker
