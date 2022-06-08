@@ -21,9 +21,8 @@ spring:
       enabled: true
   kafka:
     bootstrap-servers:
-      - ${KAFKA_ADDR}:${spring.kafka.url}
+      - ${KAFKA_ADDR:http://localhost:29092}
     client-id: ${spring.application.name}:${random.uuid}
-    url: http://localhost:9092
 
 #==========================================================
 #= SERVER
@@ -46,13 +45,16 @@ logging:
 #= SPRING ACTUATOR
 #==============================================================
 management:
+  info:
+    env:
+      enabled: true
   endpoint:
     health:
       show-details: always
   endpoints:
     web:
       exposure:
-        include: health,info,metrics
+        include: health,info,metrics,refresh,bus-refresh,bus-env
 
 #==============================================================
 #= SPRING ACTUATOR INFO
