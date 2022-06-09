@@ -3,6 +3,7 @@ volumes:
   student-card-db:
   student-db:
   rabbitmq-data:
+  zipkin-db:
 services:
   student-card-db:
     image: postgres:14.2-alpine
@@ -28,7 +29,16 @@ services:
     volumes:
       - student-db:/var/lib/postgresql/data/
 
-#  rabbitmq:
+  zipkin-db:
+    image: openzipkin/zipkin-mysql
+    container_name: zipkin-db
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - zipkin-db:/var/lib/mysql
+
+  #  rabbitmq:
 #    image: rabbitmq:3.10.2-management-alpine
 #    container_name: rabbitmq
 #    restart: always
@@ -43,8 +53,8 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.1.1
-    restart: always
     container_name: zookeeper
+    restart: always
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -53,8 +63,8 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:7.1.1
-    restart: always
     container_name: kafka
+    restart: always
     depends_on:
       - zookeeper
     ports:
@@ -66,6 +76,19 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    restart: always
+    depends_on:
+      - kafka
+      - zipkin-db
+    ports:
+      - "9411:9411"
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - STORAGE_PORT_3306_TCP_ADDR=zipkin:3306
 
   config-server:
     build:
