@@ -30,7 +30,7 @@ services:
       - student-db:/var/lib/postgresql/data/
 
   zipkin-db:
-    image: openzipkin/zipkin-mysql2.22.2
+    image: openzipkin/zipkin-mysql:2.22.2
     container_name: zipkin-db
     restart: always
     ports:
