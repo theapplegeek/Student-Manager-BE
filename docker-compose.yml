@@ -30,7 +30,7 @@ services:
       - student-db:/var/lib/postgresql/data/
 
   zipkin-db:
-    image: openzipkin/zipkin-mysql
+    image: openzipkin/zipkin-mysql2.22.2
     container_name: zipkin-db
     restart: always
     ports:
@@ -52,6 +52,7 @@ services:
 #      - rabbitmq-data:/var/lib/rabbitmq
 
   zookeeper:
+    platform: linux/amd64
     image: confluentinc/cp-zookeeper:7.1.1
     container_name: zookeeper
     restart: always
@@ -62,6 +63,7 @@ services:
       - "2181:2181"
 
   kafka:
+    platform: linux/amd64
     image: confluentinc/cp-kafka:7.1.1
     container_name: kafka
     restart: always
