@@ -23,17 +23,17 @@
     </properties>
 
     <dependencies>
-<!--        API GATEWAY-->
+<!--        SPRING CLOUD API GATEWAY-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-<!--        EUREKA CLIENT-->
+<!--        SPRING CLOUD EUREKA CLIENT-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-<!--        CONFIG CLIENT-->
+<!--        SPRING CLOUD CONFIG CLIENT-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-client</artifactId>
@@ -42,7 +42,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
-<!--        SLEUTH ZIPKIN-->
+<!--        SPRING CLOUD SLEUTH + ZIPKIN-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>

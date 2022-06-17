@@ -101,7 +101,7 @@ services:
     depends_on:
       - kafka
     environment:
-      - SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT-LABEL=docker\
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT-LABEL=docker
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=$${KAFKA_ADDR:http://kafka:29092}
       - SERVER_PORT=8888
     ports:

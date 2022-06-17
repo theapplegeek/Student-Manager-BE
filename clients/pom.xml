@@ -24,10 +24,12 @@
     </properties>
 
     <dependencies>
+<!--        SPRING BOOT VALIDATION-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+<!--        SHARED MODULE-->
         <dependency>
             <groupId>it.theapplegeek</groupId>
             <artifactId>shared</artifactId>
