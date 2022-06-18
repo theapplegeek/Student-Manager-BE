@@ -2,7 +2,6 @@ version: "3.9"
 volumes:
   student-card-db:
   student-db:
-  rabbitmq-data:
   zipkin-db:
 services:
   student-card-db:
@@ -30,12 +29,18 @@ services:
       - student-db:/var/lib/postgresql/data/
 
   zipkin-db:
-    image: openzipkin/zipkin-mysql:2.22.2
+    image: mariadb:latest
     container_name: zipkin-db
     restart: always
     ports:
       - "3306:3306"
+    environment:
+      - MARIADB_USER=zipkin
+      - MARIADB_PASSWORD=zipkin
+      - MARIADB_RANDOM_ROOT_PASSWORD=zipkin
+      - MARIADB_DATABASE=zipkin
     volumes:
+      - ./db/zipkin-db-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - zipkin-db:/var/lib/mysql
 
   #  rabbitmq:
@@ -90,7 +95,11 @@ services:
       - "9411:9411"
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
-      - STORAGE_PORT_3306_TCP_ADDR=zipkin:3306
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=zipkin-db:3306
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+      - STORAGE_PORT_3306_TCP_ADDR=zipkin-db:3306
 
   config-server:
     build:
