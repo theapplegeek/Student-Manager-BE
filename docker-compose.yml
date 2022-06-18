@@ -3,6 +3,11 @@ volumes:
   student-card-db:
   student-db:
   zipkin-db:
+  zookeeper-secret:
+  zookeeper-data:
+  zookeeper-log:
+  kafka-secret:
+  kafka-data:
 services:
   student-card-db:
     image: postgres:14.2-alpine
@@ -29,15 +34,15 @@ services:
       - student-db:/var/lib/postgresql/data/
 
   zipkin-db:
-    image: mariadb:latest
+    image: mariadb:10.7.4-focal
     container_name: zipkin-db
     restart: always
     ports:
       - "3306:3306"
     environment:
       - MARIADB_USER=zipkin
-      - MARIADB_PASSWORD=zipkin
-      - MARIADB_RANDOM_ROOT_PASSWORD=zipkin
+      - MARIADB_PASSWORD=zipkinSup3rS3cr3tPaSSword!
+      - MARIADB_RANDOM_ROOT_PASSWORD=R00tIsSup3rT0pS3cretus3r.
       - MARIADB_DATABASE=zipkin
     volumes:
       - ./db/zipkin-db-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -61,11 +66,15 @@ services:
     image: confluentinc/cp-zookeeper:7.1.1
     container_name: zookeeper
     restart: always
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "2181:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-secret:/etc/zookeeper/secrets
+      - zookeeper-log:/var/lib/zookeeper/log
 
   kafka:
     platform: linux/amd64
@@ -77,12 +86,15 @@ services:
     ports:
       - "29092:9092"
     environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+      - kafka-secret:/etc/kafka/secrets
 
   zipkin:
     image: openzipkin/zipkin:latest
@@ -98,8 +110,7 @@ services:
       - STORAGE_TYPE=mysql
       - MYSQL_HOST=zipkin-db:3306
       - MYSQL_USER=zipkin
-      - MYSQL_PASS=zipkin
-      - STORAGE_PORT_3306_TCP_ADDR=zipkin-db:3306
+      - MYSQL_PASS=zipkinSup3rS3cr3tPaSSword!
 
   config-server:
     build:
