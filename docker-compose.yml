@@ -48,19 +48,6 @@ services:
       - ./db/zipkin-db-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - zipkin-db:/var/lib/mysql
 
-  #  rabbitmq:
-#    image: rabbitmq:3.10.2-management-alpine
-#    container_name: rabbitmq
-#    restart: always
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=rabbitmq
-#      - RABBITMQ_DEFAULT_PASS=admin
-#    volumes:
-#      - rabbitmq-data:/var/lib/rabbitmq
-
   zookeeper:
     platform: linux/amd64
     image: confluentinc/cp-zookeeper:7.1.1
