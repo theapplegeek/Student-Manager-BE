@@ -9,4 +9,5 @@ RUN mvn -f /app/eureka-server/pom.xml package
 FROM openjdk:17.0.2-jdk
 WORKDIR /app
 COPY --from=build /app/eureka-server/target/eureka-server-1.0.jar eureka.jar
-CMD java -jar eureka.jar
+ENV JAVA_OPTS=""
+CMD java $JAVA_OPTS -jar eureka.jar

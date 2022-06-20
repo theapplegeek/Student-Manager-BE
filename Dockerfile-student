@@ -7,4 +7,5 @@ RUN mvn -f /app/student/pom.xml package
 FROM openjdk:17.0.2-jdk
 WORKDIR /app
 COPY --from=build /app/student/target/student-1.0.jar student.jar
-CMD java -jar student.jar
+ENV JAVA_OPTS=""
+CMD java $JAVA_OPTS -jar student.jar

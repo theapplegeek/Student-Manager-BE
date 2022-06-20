@@ -34,7 +34,8 @@ server:
 #= LOGGING
 #==========================================================
 logging:
-  file.name: './logs/config-server.log'
+  file.name: './logs/config-server/config-server.log'
+  pattern.file: "%d{ dd-MM-yyyy HH:mm:ss } %-5level %logger{36} - %msg%n"
   level:
     org.springframework.cloud: info
   logback:

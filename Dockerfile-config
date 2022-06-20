@@ -9,4 +9,5 @@ RUN mvn -f /app/config-server/pom.xml package
 FROM openjdk:17.0.2-jdk
 WORKDIR /app
 COPY --from=build /app/config-server/target/config-server-1.0.jar config.jar
-CMD java -jar config.jar
+ENV JAVA_OPTS=""
+CMD java $JAVA_OPTS -jar config.jar

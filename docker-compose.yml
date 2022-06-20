@@ -8,6 +8,7 @@ volumes:
   zookeeper-log:
   kafka-secret:
   kafka-data:
+  application-log:
 services:
   student-card-db:
     image: postgres:14.2-alpine
@@ -79,6 +80,7 @@ services:
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+#      - KAFKA_JMX_OPTS=-Xmx256m
     volumes:
       - kafka-data:/var/lib/kafka/data
       - kafka-secret:/etc/kafka/secrets
@@ -99,6 +101,36 @@ services:
       - MYSQL_USER=zipkin
       - MYSQL_PASS=zipkinSup3rS3cr3tPaSSword!
 
+  elasticsearch:
+    image: elasticsearch:7.17.4
+    container_name: elasticsearch
+    restart: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+
+  logstash:
+    image: logstash:7.17.4
+    container_name: logstash
+    restart: always
+    depends_on:
+      - elasticsearch
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+      - ./logstash/logstash.conf:/etc/logstash/conf.d/logstash.conf
+      - application-log:/usr/share/logstash/pipeline
+
+  kibana:
+    image: kibana:7.17.4
+    container_name: kibana
+    restart: always
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+
   config-server:
     build:
       dockerfile: Dockerfile-config
@@ -107,12 +139,14 @@ services:
     restart: always
     depends_on:
       - kafka
+    ports:
+      - "8888:8888"
     environment:
       - SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT-LABEL=docker
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=$${KAFKA_ADDR:http://kafka:29092}
       - SERVER_PORT=8888
-    ports:
-      - "8888:8888"
+    volumes:
+      - application-log:/app/logs/
 
   eureka-server:
     build:
@@ -122,11 +156,13 @@ services:
     restart: always
     depends_on:
       - config-server
+    ports:
+      - "8761:8761"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
       - SPRING_CLOUD_CONFIG_LABEL=docker
-    ports:
-      - "8761:8761"
+    volumes:
+      - application-log:/app/logs/
 
   api-gateway:
     build:
@@ -136,11 +172,13 @@ services:
     restart: always
     depends_on:
       - eureka-server
+    ports:
+      - "8765:8765"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
       - SPRING_CLOUD_CONFIG_LABEL=docker
-    ports:
-      - "8765:8765"
+    volumes:
+      - application-log:/app/logs/
 
   student-card:
     build:
@@ -151,11 +189,13 @@ services:
       - eureka-server
       - student-card-db
       - config-server
+    ports:
+      - "8080-8089:8081"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
       - SPRING_CLOUD_CONFIG_LABEL=docker
-    ports:
-      - "8080-8089:8081"
+    volumes:
+      - application-log:/app/logs/
 
   student:
     build:
@@ -167,8 +207,10 @@ services:
       - student-db
       - config-server
       - kafka
+    ports:
+      - "8090-8099:8080"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
       - SPRING_CLOUD_CONFIG_LABEL=docker
-    ports:
-      - "8090-8099:8080"
+    volumes:
+      - application-log:/app/logs/

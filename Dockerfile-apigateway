@@ -9,4 +9,5 @@ RUN mvn -f /app/api-gateway/pom.xml package
 FROM openjdk:17.0.2-jdk
 WORKDIR /app
 COPY --from=build /app/api-gateway/target/api-gateway-1.0.jar api-gateway.jar
-CMD java -jar api-gateway.jar
+ENV JAVA_OPTS=""
+CMD java $JAVA_OPTS -jar api-gateway.jar
