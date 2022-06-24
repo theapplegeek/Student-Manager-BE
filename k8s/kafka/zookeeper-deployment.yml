@@ -16,7 +16,7 @@ spec:
         image: confluentinc/cp-zookeeper:7.1.1
         resources:
           limits:
-            memory: "128Mi"
+            memory: "512Mi"
             cpu: "1000m"
         ports:
         - containerPort: 2181
