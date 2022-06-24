@@ -21,6 +21,8 @@ spec:
         ports:
         - containerPort: 9092
         env:
+        - name: KAFKA_BROKER_ID=1
+          value: "1"
         - name: KAFKA_ZOOKEEPER_CONNECT
           value: zookeeper-service:2181
         - name: KAFKA_ADVERTISED_LISTENERS
