@@ -17,12 +17,26 @@ spring:
           username: TheAppleGeeK
           password: glpat-DxzszDxSghbQWsqJzcz9
           default-label: main
+    #==========================================================
+    #= SPRING CLOUD BUS
+    #==========================================================
     bus:
       enabled: true
-  kafka:
-    bootstrap-servers:
-      - ${KAFKA_ADDR:http://kafka:29092}
-    client-id: ${spring.application.name}:${random.uuid}
+  #==========================================================
+  #= APACHE KAFKA
+  #==========================================================
+#  kafka:
+#    bootstrap-servers:
+#      - ${KAFKA_ADDR:http://kafka:29092}
+#    client-id: ${spring.application.name}:${random.uuid}
+  #==========================================================
+  #= RABBITMQ
+  #==========================================================
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: rabbitmq
+    password: admin
 
 #==========================================================
 #= SERVER
