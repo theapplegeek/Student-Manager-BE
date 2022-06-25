@@ -248,6 +248,10 @@ services:
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
       - SPRING_CLOUD_CONFIG_LABEL=docker
+      - RABBITMQ_USERNAME=rabbitmq
+      - RABBITMQ_PASSWORD=admin
+      - GIT_USERNAME=TheAppleGeeK
+      - GIT_PASSWORD=glpat-DxzszDxSghbQWsqJzcz9
       - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport
     volumes:
       - application-log:/app/logs/

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-db
+  namespace: student-manager
+spec:
+  selector:
+    matchLabels:
+      app: student-db
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: student-db
+        tier: database
+    spec:
+      containers:
+      - name: student-db
+        image: postgres:14.2-alpine
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432
+        envFrom:
+          - configMapRef:
+              name: student-db-config
+          - secretRef:
+              name: student-db-secret
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data/
+            name: student-db-data
+      volumes:
+        - name: student-db-data
+          persistentVolumeClaim:
+            claimName: student-db-pvc
+      restartPolicy: Always

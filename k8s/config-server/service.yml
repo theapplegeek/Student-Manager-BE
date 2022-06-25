@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+  namespace: student-manager
+spec:
+  selector:
+    app: config-server
+  type: ClusterIP
+  ports:
+  - port: 8888
+    targetPort: 8888

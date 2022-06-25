@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student
+  namespace: student-manager
+spec:
+  selector:
+    matchLabels:
+      app: student
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: student
+        tier: backend
+    spec:
+      containers:
+      - name: student
+        image: registry.gitlab.com/student262/student-manager-be/student:1.0
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: student-config
+          - secretRef:
+              name: student-secret
+        volumeMounts:
+          - mountPath: /app/logs
+            name: log-volume
+      volumes:
+        - name: log-volume
+          persistentVolumeClaim:
+            claimName: log-pvc
+      imagePullSecrets:
+        - name: gitlab-registry
+      restartPolicy: Always

@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: api-gateway
+  namespace: student-manager
+  labels:
+    name: api-gateway
+spec:
+  rules:
+  - host: student-manager.it
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/rabbitmq(/|$)(.*)"
+        backend:
+          service:
+            name: rabbitmq
+            port:
+              number: 15672
+      - pathType: Prefix
+        path: "/student(/|$)(.*)"
+        backend:
+          service:
+            name: student
+            port:
+              number: 8080

@@ -14,8 +14,8 @@ spring:
       server:
         git:
           uri: https://gitlab.com/student262/student-manager-config.git
-          username: TheAppleGeeK
-          password: glpat-DxzszDxSghbQWsqJzcz9
+          username: ${GIT_USERNAME}
+          password: ${GIT_PASSWORD}
           default-label: main
     #==========================================================
     #= SPRING CLOUD BUS
@@ -35,8 +35,8 @@ spring:
   rabbitmq:
     host: rabbitmq
     port: 5672
-    username: rabbitmq
-    password: admin
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
 
 #==========================================================
 #= SERVER
