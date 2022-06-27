@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "student-card", configuration = FeignConfig.class)
+@FeignClient(name = "student-card", url="${student-card.ribbon.listOfServers}", configuration = FeignConfig.class)
 public interface StudentCardClient {
     @GetMapping("/api/v1/student_card/student/{studentId}")
     StudentCardDto getStudentCardByStudentId(@PathVariable("studentId") Long studentId);
