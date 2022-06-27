@@ -26,3 +26,10 @@ spec:
             name: student
             port:
               number: 8080
+      - pathType: Prefix
+        path: "/student-card(/|$)(.*)"
+        backend:
+          service:
+            name: student-card
+            port:
+              number: 8081

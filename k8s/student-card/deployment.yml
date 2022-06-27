@@ -1,34 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: student
+  name: student-card
   namespace: student-manager
 spec:
   selector:
     matchLabels:
-      app: student
+      app: student-card
   replicas: 1
   template:
     metadata:
       labels:
-        app: student
+        app: student-card
         tier: backend
     spec:
       containers:
-      - name: student
-        image: registry.gitlab.com/student262/student-manager-be/student:1.0
+      - name: student-card
+        image: registry.gitlab.com/student262/student-manager-be/student-card:1.0
         imagePullPolicy: Always
         resources:
           limits:
             memory: "256Mi"
             cpu: "500m"
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
         envFrom:
           - configMapRef:
-              name: student-config
+              name: student-card-config
           - secretRef:
-              name: student-secret
+              name: student-card-secret
         volumeMounts:
           - mountPath: /app/logs
             name: log-volume

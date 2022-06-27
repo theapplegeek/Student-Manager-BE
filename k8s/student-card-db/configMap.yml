@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: student-card-db-config
+  namespace: student-manager
+data:
+  POSTGRES_DB: student_card

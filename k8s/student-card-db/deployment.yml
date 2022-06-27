@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: student-db
+  name: student-card-db
   namespace: student-manager
 spec:
   selector:
     matchLabels:
-      app: student-db
+      app: student-card-db
   replicas: 1
   template:
     metadata:
       labels:
-        app: student-db
+        app: student-card-db
         tier: database
     spec:
       containers:
-      - name: student-db
+      - name: student-card-db
         image: postgres:14.2-alpine
         imagePullPolicy: Always
         resources:
@@ -26,14 +26,14 @@ spec:
         - containerPort: 5432
         envFrom:
           - configMapRef:
-              name: student-db-config
+              name: student-card-db-config
           - secretRef:
-              name: student-db-secret
+              name: student-card-db-secret
         volumeMounts:
           - mountPath: /var/lib/postgresql/data/
-            name: student-db-data
+            name: student-card-db-data
       volumes:
-        - name: student-db-data
+        - name: student-card-db-data
           persistentVolumeClaim:
-            claimName: student-db-pvc
+            claimName: student-card-db-pvc
       restartPolicy: Always
