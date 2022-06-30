@@ -6,6 +6,7 @@ metadata:
   labels:
     app: rabbitmq
 spec:
+  nodeName: minikube
   storageClassName: manual
   capacity:
     storage: 1Gi

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zipkin-db-config
+  namespace: student-manager
+data:
+  MARIADB_DATABASE: zipkin

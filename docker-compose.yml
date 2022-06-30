@@ -51,14 +51,14 @@ services:
     environment:
       - MARIADB_USER=zipkin
       - MARIADB_PASSWORD=zipkinSup3rS3cr3tPaSSword!
-      - MARIADB_RANDOM_ROOT_PASSWORD=R00tIsSup3rT0pS3cretus3r.
+      - MARIADB_ROOT_PASSWORD=R00tIsSup3rT0pS3cretus3r.
       - MARIADB_DATABASE=zipkin
     volumes:
       - ./db/zipkin-db-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - zipkin-db:/var/lib/mysql
 
   zipkin:
-    image: openzipkin/zipkin:latest
+    image: openzipkin/zipkin:2.23
     container_name: zipkin
     restart: always
     depends_on:
@@ -123,7 +123,7 @@ services:
     ports:
       - "5601:5601"
     environment:
-      - environmentKIBANA_JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -XX:MaxRAMFraction=1
+      - KIBANA_JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -XX:MaxRAMFraction=1
 
   rabbitmq:
     image: rabbitmq:3.10.2-management-alpine

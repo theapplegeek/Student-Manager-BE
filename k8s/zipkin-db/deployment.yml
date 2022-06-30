@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zipkin-db
+  namespace: student-manager
+spec:
+  selector:
+    matchLabels:
+      app: zipkin-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zipkin-db
+        tier: database
+    spec:
+      containers:
+      - name: zipkin-db
+        image: registry.gitlab.com/student262/student-manager-be/zipkin-mariadb:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306
+        envFrom:
+          - configMapRef:
+              name: zipkin-db-config
+          - secretRef:
+              name: zipkin-db-secret
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: zipkin-db-data
+      volumes:
+        - name: zipkin-db-data
+          persistentVolumeClaim:
+            claimName: zipkin-db-pvc
+      imagePullSecrets:
+        - name: gitlab-registry
+      restartPolicy: Always

@@ -8,6 +8,7 @@ spec:
     matchLabels:
       app: rabbitmq
   replicas: 1
+  revisionHistoryLimit: 0
   template:
     metadata:
       labels:

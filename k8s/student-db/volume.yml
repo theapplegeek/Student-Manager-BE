@@ -22,6 +22,7 @@ metadata:
   labels:
     app: student-db
 spec:
+  nodeName: minikube
   storageClassName: manual
   accessModes:
     - ReadWriteMany
