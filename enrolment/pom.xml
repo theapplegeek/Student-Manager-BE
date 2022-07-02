@@ -101,12 +101,6 @@
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>it.theapplegeek</groupId>
-            <artifactId>shared</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
