@@ -1,0 +1,11 @@
+FROM maven:3.8.4-openjdk-17-slim AS build
+WORKDIR /app
+COPY ./ /app
+RUN mvn install
+RUN mvn -f /app/teacher/pom.xml package
+
+FROM openjdk:17.0.2-jdk
+WORKDIR /app
+COPY --from=build /app/teacher/target/teacher-1.0.jar teacher.jar
+ENV JAVA_OPTS=""
+CMD java $JAVA_OPTS -jar teacher.jar

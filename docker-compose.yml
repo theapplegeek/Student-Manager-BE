@@ -2,6 +2,9 @@ version: "3.9"
 volumes:
   student-card-db:
   student-db:
+  enrolment-db:
+  course-db:
+  teacher-db:
   zipkin-db:
   rabbitmq-data:
   application-log:
@@ -37,6 +40,54 @@ services:
       - "5433:5432"
     volumes:
       - student-db:/var/lib/postgresql/data/
+
+  enrolment-db:
+    image: postgres:14.2-alpine
+    container_name: enrolment-db
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+    environment:
+      - POSTGRES_PASSWORD=Password01!
+      - POSTGRES_DB=enrolment
+    ports:
+      - "5434:5432"
+    volumes:
+      - enrolment-db:/var/lib/postgresql/data/
+
+  course-db:
+    image: postgres:14.2-alpine
+    container_name: course-db
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+    environment:
+      - POSTGRES_PASSWORD=Password01!
+      - POSTGRES_DB=course
+    ports:
+      - "5435:5432"
+    volumes:
+      - course-db:/var/lib/postgresql/data/
+
+  teacher-db:
+    image: postgres:14.2-alpine
+    container_name: teacher-db
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+    environment:
+      - POSTGRES_PASSWORD=Password01!
+      - POSTGRES_DB=teacher
+    ports:
+      - "5436:5432"
+    volumes:
+      - teacher-db:/var/lib/postgresql/data/
 
   zipkin-db:
     image: mariadb:10.7.4-focal
@@ -245,6 +296,87 @@ services:
           memory: 256M
     ports:
       - "8090-8099:8080"
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+      - SPRING_CLOUD_CONFIG_LABEL=docker
+      - RABBITMQ_USERNAME=rabbitmq
+      - RABBITMQ_PASSWORD=admin
+      - GIT_USERNAME=TheAppleGeeK
+      - GIT_PASSWORD=glpat-DxzszDxSghbQWsqJzcz9
+      - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport
+    volumes:
+      - application-log:/app/logs/
+
+  enrolment:
+    build:
+      dockerfile: Dockerfile-enrolment
+      context: ./
+    restart: always
+    depends_on:
+      - eureka-server
+      - enrolment-db
+      - config-server
+      - rabbitmq
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    ports:
+      - "8100-8109:8082"
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+      - SPRING_CLOUD_CONFIG_LABEL=docker
+      - RABBITMQ_USERNAME=rabbitmq
+      - RABBITMQ_PASSWORD=admin
+      - GIT_USERNAME=TheAppleGeeK
+      - GIT_PASSWORD=glpat-DxzszDxSghbQWsqJzcz9
+      - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport
+    volumes:
+      - application-log:/app/logs/
+
+  course:
+    build:
+      dockerfile: Dockerfile-course
+      context: ./
+    restart: always
+    depends_on:
+      - eureka-server
+      - course-db
+      - config-server
+      - rabbitmq
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    ports:
+      - "8110-8119:8083"
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+      - SPRING_CLOUD_CONFIG_LABEL=docker
+      - RABBITMQ_USERNAME=rabbitmq
+      - RABBITMQ_PASSWORD=admin
+      - GIT_USERNAME=TheAppleGeeK
+      - GIT_PASSWORD=glpat-DxzszDxSghbQWsqJzcz9
+      - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport
+    volumes:
+      - application-log:/app/logs/
+
+  teacher:
+    build:
+      dockerfile: Dockerfile-teacher
+      context: ./
+    restart: always
+    depends_on:
+      - eureka-server
+      - teacher-db
+      - config-server
+      - rabbitmq
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    ports:
+      - "8120-8129:8084"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
       - SPRING_CLOUD_CONFIG_LABEL=docker

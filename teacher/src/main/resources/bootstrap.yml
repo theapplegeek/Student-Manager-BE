@@ -1,0 +1,24 @@
+spring:
+  #==========================================================
+  #= SPRING APPLICATION
+  #==========================================================
+  version: 2.6.6
+  application:
+    name: teacher
+    version: 1.0
+  profiles:
+    active: ${spring.cloud.config.profile}
+  #==========================================================
+  #= SPRING CLOUD CONFIG SERVER
+  #==========================================================
+  cloud:
+    config:
+      uri: http://localhost:8888
+      profile: dev
+      label: main
+      fail-fast: true
+      retry:
+        max-attempts: 10
+  devtools:
+    restart:
+      enabled: true

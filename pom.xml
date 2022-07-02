@@ -32,6 +32,9 @@
         <module>clients</module>
         <module>api-gateway</module>
         <module>config-server</module>
+        <module>enrolment</module>
+        <module>course</module>
+        <module>teacher</module>
     </modules>
 
     <dependencyManagement>

@@ -17,8 +17,8 @@ public class StudentFeignClient {
         try {
             studentClient.cleanStudentCacheById(studentId);
         } catch (FeignException e) {
-            log.warning("===== FeignException -> " + e.getMessage() + " =====");
-            log.warning("===== Error when deleting a cache of student with id " + studentId + " =====");
+            log.warning("##### FeignException -> " + e.getMessage() + " #####");
+            log.warning("##### Error when deleting a cache of student with id " + studentId + " #####");
             throw new ServiceUnavailableException("Error when deleting a cache of student with id " + studentId);
         }
     }

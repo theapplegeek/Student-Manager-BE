@@ -1,0 +1,11 @@
+FROM maven:3.8.4-openjdk-17-slim AS build
+WORKDIR /app
+COPY ./ /app
+RUN mvn install
+RUN mvn -f /app/enrolment/pom.xml package
+
+FROM openjdk:17.0.2-jdk
+WORKDIR /app
+COPY --from=build /app/enrolment/target/enrolment-1.0.jar enrolment.jar
+ENV JAVA_OPTS=""
+CMD java $JAVA_OPTS -jar enrolment.jar

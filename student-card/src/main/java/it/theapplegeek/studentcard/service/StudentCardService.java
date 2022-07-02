@@ -41,29 +41,29 @@ public class StudentCardService {
     public StudentCardDto getStudentCardByStudentId(Long studentId) {
         return studentCardRepo.findByStudentId(studentId)
                 .map((studentCard) -> {
-                    log.info("===== Found student card with id " + studentCard.getId() + " of student with is " + studentCard.getStudentId() + " =====");
+                    log.info("##### Found student card with id " + studentCard.getId() + " of student with is " + studentCard.getStudentId() + " #####");
                     return studentCardMapper.toDto(studentCard);
                 })
                 .orElseThrow(() -> {
-                    log.warning("===== Student card of student with id " + studentId + " not found =====");
+                    log.warning("##### Student card of student with id " + studentId + " not found #####");
                     throw new NotFoundException("Student card of student with id " + studentId + " not found");
                 });
     }
 
     public StudentCardDto addStudentCardAndAssignToStudent(Long studentId, StudentCardDto studentCardDto) {
         if (studentCardRepo.existsByStudentId(studentId)) {
-            log.warning("===== Student with id " + studentId + " just have a card =====");
+            log.warning("##### Student with id " + studentId + " just have a card #####");
             throw new BadRequestException("Student with id " + studentId + " just have a card");
         }
         studentCardDto.setStudentId(studentId);
         studentCardDto.setCardNumber(studentCardDto.getCardNumber().toUpperCase());
         if (studentCardRepo.existsByCardNumberIgnoreCase(studentCardDto.getCardNumber())) {
-            log.warning("===== Card with number " + studentCardDto.getCardNumber() + " is taken =====");
+            log.warning("##### Card with number " + studentCardDto.getCardNumber() + " is taken #####");
             throw new BadRequestException("Card with number " + studentCardDto.getCardNumber() + " is taken");
         }
         studentClient.cleanStudentCacheById(studentId);
         StudentCard studentCard = studentCardRepo.save(studentCardMapper.toEntity(studentCardDto));
-        log.info("===== Card with id " + studentCard.getId() + " created =====");
+        log.info("##### Card with id " + studentCard.getId() + " created #####");
         return studentCardMapper.toDto(studentCard);
     }
 
@@ -71,23 +71,22 @@ public class StudentCardService {
     public StudentCardDto updateStudentCard(Long cardId, StudentCardDto newStudentCard, Boolean isRenewal) {
         StudentCard studentCard = studentCardRepo.findById(cardId)
                 .orElseThrow(() -> {
-                    log.warning("===== Card with id " + cardId + " not found =====");
+                    log.warning("##### Card with id " + cardId + " not found #####");
                     throw new NotFoundException("Card with id " + cardId + " not found");
                 });
         studentClient.cleanStudentCacheById(studentCard.getStudentId());
         if (IsChangedChecker.isChanged(studentCard.getCardNumber(), newStudentCard.getCardNumber())) {
-            log.info("===== Update card number from " + studentCard.getCardNumber() + " to " + newStudentCard.getCardNumber() + " =====");
+            log.info("##### Update card number from " + studentCard.getCardNumber() + " to " + newStudentCard.getCardNumber() + " #####");
             studentCard.setCardNumber(newStudentCard.getCardNumber());
         }
         if (IsChangedChecker.isChanged(studentCard.getExpiredDate(), newStudentCard.getExpiredDate())) {
-            log.info("===== Update expiration date from " + studentCard.getExpiredDate() + " to " + newStudentCard.getExpiredDate() + " =====");
+            log.info("##### Update expiration date from " + studentCard.getExpiredDate() + " to " + newStudentCard.getExpiredDate() + " #####");
             studentCard.setExpiredDate(newStudentCard.getExpiredDate());
         }
         if (isRenewal) {
-            log.info("===== Is renewal a card =====");
+            log.info("##### Is renewal a card #####");
             studentCard.setCreatedDate(LocalDate.now());
         }
-        log.info("===== Student card with id " + studentCard.getId() + " updated =====");
         cleanStudentCardCacheByStudentId(studentCard.getStudentId());
         return studentCardMapper.toDto(studentCard);
     }
@@ -97,11 +96,11 @@ public class StudentCardService {
                 .map(studentCard -> {
                     studentClient.cleanStudentCacheById(studentCard.getStudentId());
                     studentCardRepo.deleteById(cardId);
-                    log.info("===== Student card with id " + cardId + " deleted =====");
+                    log.info("##### Student card with id " + cardId + " deleted #####");
                     cleanStudentCardCacheByStudentId(studentCard.getStudentId());
                     return studentCard;
                 }).orElseThrow(() -> {
-                    log.warning("===== Card with id " + cardId + " not found =====");
+                    log.warning("##### Card with id " + cardId + " not found #####");
                     throw new NotFoundException("Card with id " + cardId + " not found");
                 });
     }
@@ -112,19 +111,19 @@ public class StudentCardService {
     @Transactional
     public void deleteStudentCardByStudentId(Long studentId) {
         if (!studentCardRepo.existsByStudentId(studentId)) {
-            log.warning("===== Card with id " + studentId + " not found =====");
+            log.warning("##### Card with id " + studentId + " not found #####");
             throw new NotFoundException("Card with id " + studentId + " not found");
         }
         studentClient.cleanStudentCacheById(studentId);
         studentCardRepo.deleteByStudentId(studentId);
-        log.info("===== Student card of student with id " + studentId + " deleted =====");
+        log.info("##### Student card of student with id " + studentId + " deleted #####");
     }
 
     public void cleanCaches() {
         Collection<String> items = cacheManager.getCacheNames();
         items.forEach((item) -> {
             Objects.requireNonNull(cacheManager.getCache(item)).clear();
-            log.info(String.format("===== deleted cache %s =====", item));
+            log.info(String.format("##### deleted cache %s #####", item));
         });
     }
 
